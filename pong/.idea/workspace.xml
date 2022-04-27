@@ -4,7 +4,51 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="71fbceb9-8a3d-4297-8659-a07ea4a7cd95" name="Changes" comment="" />
+    <list default="true" id="71fbceb9-8a3d-4297-8659-a07ea4a7cd95" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../client/client/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/client/src/main/java/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/client/src/main/java/client/Client.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/client/src/main/java/client/Connection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/client/src/main/java/controllers/BallController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/client/src/main/java/controllers/GameController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/client/src/main/java/controllers/LobbyController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/client/src/main/java/controllers/PlayerController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/client/src/main/java/controllers/RacketController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../common/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../common/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../common/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../common/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/controllers/BallController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/controllers/BallController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/controllers/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/controllers/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/controllers/LobbyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/controllers/LobbyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/controllers/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/controllers/PlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/controllers/RacketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/controllers/RacketController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/enums/MoveDirection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/enums/MoveDirection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/messages/GameSelectionSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/messages/GameSelectionSignal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/messages/GameUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/messages/GameUpdate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/messages/LobbyUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/messages/LobbyUpdate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/messages/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/messages/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/messages/MoveSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/messages/MoveSignal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/messages/PlayerUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/messages/PlayerUpdate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/models/BallModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/models/BallModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/models/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/models/GameModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/models/LobbyModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/models/LobbyModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/models/PlayerModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/models/PlayerModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/models/RacketModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common/common/models/RacketModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/server/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/server/src/main/java/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/server/src/main/java/controllers/BallController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/server/src/main/java/controllers/GameController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/server/src/main/java/controllers/LobbyController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/server/src/main/java/controllers/PlayerController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/server/src/main/java/controllers/RacketController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/server/src/main/java/server/Connection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/server/src/main/java/server/MessageRouter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/server/src/main/java/server/Server.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,10 +62,17 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectId" id="28L13qFR9A3C1vM7LOgFu8bx4rW" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -31,10 +82,11 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "jdk.selected.JAVA_MODULE": "JavaSE-13",
-    "last_opened_file_path": "C:/Code/pong/client/client/src/main/java/controllers",
+    "last_opened_file_path": "C:/Code/pong/server",
     "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -46,14 +98,22 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
+      <setting name="path" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="file://$PROJECT_DIR$" />
+      <setting name="debug" value="false" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
-      <module name="common" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="common" />
       <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -70,5 +130,16 @@
       <updated>1650980857534</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -22,7 +22,7 @@ public class Connection {
         socket.close();
     }
 
-    public List<Message> readMessages() {
+    public <Message> List<Message> readMessages() {
         List<Message> messages = new ArrayList<Message>();
         try {
             messages = (List<Message>) objectInputStream.readObject();
@@ -37,7 +37,7 @@ public class Connection {
         return messages;
     }
 
-    public void sendMessage(Message message) throws IOException {
+    public <Message> void sendMessage(Message message) throws IOException {
         System.out.println(message.toString());
         objectOutputStream.writeObject(message);
         objectOutputStream.flush();
