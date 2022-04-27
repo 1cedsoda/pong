@@ -1,5 +1,5 @@
 package common.messages;
 
-public class GameSelectionSignal {
+public class GameCreateSignal extends Message {
     private String playerName;
 }

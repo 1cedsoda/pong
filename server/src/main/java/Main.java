@@ -1,3 +1,4 @@
+import common.controllers.GamesController;
 import common.controllers.LobbyController;
 import server.MessageRouter;
 import server.Server;
@@ -9,14 +10,14 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         // Setup state
-        List<GameController> gameControllers = new ArrayList<GameController>();
+        GamesController gamesController =new GamesController();
         LobbyController lobbyController = new LobbyController();
 
         // Create Message Router
-        MessageRouter messageRouter = new MessageRouter(gameControllers, lobbyController);
+        MessageRouter messageRouter = new MessageRouter(gamesController, lobbyController);
 
         // Thread communication.Server
-        Server server = new Server();
+        Server server = new Server(messageRouter);
         server.runThread();
     }
 }

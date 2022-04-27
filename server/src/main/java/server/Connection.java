@@ -1,9 +1,11 @@
 package server;
 
+import common.Pair;
 import common.messages.Message;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,22 +24,26 @@ public class Connection {
         socket.close();
     }
 
-    public <Message> List<Message> readMessages() {
-        List<Message> messages = new ArrayList<Message>();
+    public List<ConnectedMessage> readMessages() {
+        List<Message> messages = new ArrayList<>();
         try {
             messages = (List<Message>) objectInputStream.readObject();
             for (Message message : messages) {
                 System.out.println(message.toString());
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+            System.out.println("Connection closed from: " + socket.getInetAddress());
+        }   catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        return messages;
+        List<ConnectedMessage> connectedMessages = new ArrayList<>();
+        for (Message message : messages) {
+            connectedMessages.add(new ConnectedMessage(message, this));
+        }
+        return connectedMessages;
     }
 
-    public <Message> void sendMessage(Message message) throws IOException {
+    public void sendMessage(Message message) throws IOException {
         System.out.println(message.toString());
         objectOutputStream.writeObject(message);
         objectOutputStream.flush();

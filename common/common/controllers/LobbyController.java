@@ -1,7 +1,11 @@
 package common.controllers;
 
+import common.messages.PlayerUpdate;
 import common.models.LobbyModel;
 
 public class LobbyController {
-    private LobbyModel lobbyState;
+    protected LobbyModel lobbyState;
+
+    public void onPlayerUpdate(PlayerUpdate message) {
+    }
 }

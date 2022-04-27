@@ -3,5 +3,9 @@ package common.controllers;
 import common.models.GameModel;
 
 public class GameController {
-    private GameModel gameState;
+    protected GameModel gameState;
+
+    public String getGameId() {
+        return this.gameState.gameId;
+    }
 }

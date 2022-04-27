@@ -1,9 +1,11 @@
 import client.Client;
+import views.MainFrame;
 
 public class Main {
     public static void main(String[] args) {
         Client client = new Client();
         client.runThread();
-        client.connect("localhost", 2347);
+
+        MainFrame mainFrame = new MainFrame(client);
     }
 }

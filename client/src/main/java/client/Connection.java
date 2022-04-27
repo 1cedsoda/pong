@@ -11,12 +11,10 @@ import java.util.List;
 
 public class Connection {
 
-    private ObjectInputStream objectInputStream;
-    private ObjectOutputStream objectOutputStream;
+    private final ObjectInputStream objectInputStream;
+    private final ObjectOutputStream objectOutputStream;
 
-    private String host;
-    private int port;
-    private Socket socket;
+    private final Socket socket;
 
     public Connection(Socket socket) {
         try {
@@ -52,9 +50,7 @@ public class Connection {
             for (Message message : messages) {
                 System.out.println(message.toString());
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
         return messages;
