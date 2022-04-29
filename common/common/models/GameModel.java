@@ -3,13 +3,18 @@ package common.models;
 public class GameModel {
 
     public String gameId;
-    public RacketModel leftPlayerState;
-    public RacketModel rightPlayerState;
+    public RacketModel leftRacketState;
+    public RacketModel rightRacketState;
     public BallModel ballState;
 
-    public GameModel(RacketModel leftPlayerState, RacketModel rightPlayerState, BallModel ballState) {
-        this.leftPlayerState = leftPlayerState;
-        this.rightPlayerState = rightPlayerState;
+    public GameModel(RacketModel leftRacketState, RacketModel rightRacketState, BallModel ballState) {
+        this.leftRacketState = leftRacketState;
+        this.rightRacketState = rightRacketState;
         this.ballState = ballState;
     }
+
+    public GameModel() {
+        this.ballState = new BallModel();
+    }
+
 }
