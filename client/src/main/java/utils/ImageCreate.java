@@ -17,7 +17,7 @@ public class ImageCreate {
         String filePath;
         String os = getOperatingSystem();
         if(os.contains("Windows")) {
-            filePath = new File("").getAbsolutePath() + "\\client\\src\\main\\resources\\"+fileName;
+            filePath = new File("").getAbsolutePath() + "\\..\\client\\src\\main\\resources\\"+fileName;
             System.out.println(filePath);
             return filePath;
         } else {
