@@ -26,24 +26,7 @@ public class ImageCreate {
             return filePath;
         }
     }
-   /* public static String gettingPath (String fileName) {
-        String filePath;
-        switch("os") {
-            case "Windows 10":
-            case "Windows 11":
-                filePath = new File("").getAbsolutePath() + "\\client\\src\\main\\resources\\"+fileName;
-                System.out.println(filePath);
-                return filePath;
-            default:
-                filePath = new File("").getAbsolutePath() + "/client/src/main/resources/"+fileName;
-                System.out.println(filePath);
-                return filePath;
-        }
-    }
-
-    */
    // Folgende Funktion kopieren und "exit" ändern um ein neues Image hinzuzufügen
-    //public static BufferedImage exit= readBufferedImage("/Users/kevinstamm/IdeaProjects/pong/client/src/main/resources/f.png");
     public static BufferedImage exit= readBufferedImage(getPath("f.png"));
     public static BufferedImage readBufferedImage(String fileName) {
         File f = new File(fileName);
