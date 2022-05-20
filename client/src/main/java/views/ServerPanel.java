@@ -50,11 +50,12 @@ public class ServerPanel extends JPanel {
             try {
 
                 client.connect(host, portInt);
+                mainFrame.showLobbyPanel();
             } catch (Exception e2) {
                 e2.printStackTrace();
             }
 
-            mainFrame.showLobbyPanel();
+
 
         });
     }
