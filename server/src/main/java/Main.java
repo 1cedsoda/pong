@@ -1,10 +1,12 @@
-import common.controllers.GamesController;
-import common.controllers.LobbyController;
+import controllers.GamesController;
+import controllers.LobbyController;
 import geometry.Collision;
 import common.geometry.Line;
 import common.geometry.Point;
 import server.MessageRouter;
 import server.Server;
+
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,8 +21,8 @@ public class Main {
         Server server = new Server(messageRouter);
         server.runThread();
 
-        Line l1 = new Line(new Point(0, -1), new Point(0, 1));
-        Line l2 = new Line(new Point(-1, -1), new Point(1, 1));
-        Collision c = Collision.calulateCollision(l1, l2);
+        Line l1 = new Line(new Point(0,0), new Point(0,200));
+        Collision c = Collision.calculateCollisonWithWalls(l1);
+        System.out.println(c);
     }
 }

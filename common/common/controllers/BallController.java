@@ -1,15 +1,19 @@
 package common.controllers;
 
+import common.geometry.Point;
 import common.models.BallModel;
 
-public class BallController {
-    protected BallModel ballState;
+public class BallController extends BallModel {
 
-    public BallController(BallModel ballState) {
-        this.ballState = ballState;
+    protected GameController gameController;
+
+    public BallController(Point position, double xv, double yv, GameController gameController) {
+        super(position, xv, yv);
+        this.gameController = gameController;
     }
 
-    public BallModel getBallState() {
-        return ballState;
+    public BallController(BallModel ballState, GameController gameController) {
+        super(ballState.position, ballState.xv, ballState.yv);
+        this.gameController = gameController;
     }
 }

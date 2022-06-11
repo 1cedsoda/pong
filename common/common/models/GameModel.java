@@ -12,9 +12,4 @@ public class GameModel {
         this.rightRacketState = rightRacketState;
         this.ballState = ballState;
     }
-
-    public GameModel() {
-        this.ballState = new BallModel();
-    }
-
 }

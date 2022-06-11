@@ -1,12 +1,12 @@
 package common.models;
 
 public class RacketModel {
-    int score;
-    double size;
-    double y;
-    PlayerModel player;
+    public int score;
+    public double size;
+    public double y;
+    public PlayerModel player;
 
-    RacketModel(int score, double size, double y, PlayerModel player) {
+    protected RacketModel(int score, double size, double y, PlayerModel player) {
         this.score = score;
         this.size = size;
         this.y = y;

@@ -1,6 +1,8 @@
 package common.geometry;
 
-public class Line {
+import java.io.Serializable;
+
+public class Line implements Serializable {
     public Point start;
     public Point end;
 
@@ -16,5 +18,15 @@ public class Line {
 
     public double getDistance() {
         return start.getDistance(end);
+    }
+
+    public boolean pointIsOnLine(Point p) {
+        double distanceSum = p.getDistance(end) + p.getDistance(start);
+        return distanceSum == 2.0;
+    }
+
+    @Override
+    public java.lang.String toString() {
+        return start.toString() + "->" + end.toString();
     }
 }

@@ -1,15 +1,15 @@
 package common.controllers;
 
+import common.models.BallModel;
 import common.models.GameModel;
+import common.models.RacketModel;
 
-public class GameController {
-    protected GameModel gameState;
-
-    public GameController(GameModel gameState) {
-        this.gameState = gameState;
+public class GameController extends GameModel {
+    public GameController(RacketModel leftRacketState, RacketModel rightRacketState, BallModel ballState) {
+        super(leftRacketState, rightRacketState, ballState);
     }
 
-    public String getGameId() {
-        return this.gameState.gameId;
+    public GameController(GameModel gameState) {
+        super(gameState.leftRacketState, gameState.rightRacketState, gameState.ballState);
     }
 }

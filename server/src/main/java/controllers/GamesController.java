@@ -1,5 +1,6 @@
-package common.controllers;
+package controllers;
 
+import common.controllers.GameController;
 import common.messages.GameCreateSignal;
 
 import java.util.ArrayList;
@@ -12,9 +13,9 @@ public class GamesController {
         this.gameControllers = new ArrayList<GameController>();
     }
 
-    public GameController getByGameId(String gameId) {
-        for (GameController gameController : gameControllers) {
-            if (gameController.getGameId().equals(gameId)) {
+    public common.controllers.GameController getByGameId(String gameId) {
+        for (common.controllers.GameController gameController : gameControllers) {
+            if (gameController.gameId.equals(gameId)) {
                 return gameController;
             }
         }
