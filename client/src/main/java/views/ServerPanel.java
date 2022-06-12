@@ -1,14 +1,16 @@
 package views;
 
-import client.Client;
+import client.GameClient;
+import common.messages.LobbyJoinMessage;
 
 import javax.swing.*;
+import java.io.IOException;
+import java.net.ConnectException;
 
 public class ServerPanel extends JPanel {
-    public ServerPanel(MainFrame mainFrame, Client client) {
-        add(new JLabel("Server Panel"));
+    public ServerPanel(MainFrame mainFrame, GameClient client) {
 
-        // New COntainer
+        // New Container
         JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         add(container);
@@ -22,7 +24,7 @@ public class ServerPanel extends JPanel {
         inputHost.add(hostLabel);
 
         JTextField hostInput = new JTextField(20);
-        hostInput.setText("localhost");
+        hostInput.setText("127.0.0.1");
         inputHost.add(hostInput);
 
         // Input Port
@@ -37,6 +39,18 @@ public class ServerPanel extends JPanel {
         portInput.setText("2347");
         inputPort.add(portInput);
 
+        // Input Name
+        JPanel inputName = new JPanel();
+        inputName.setLayout(new BoxLayout(inputName, BoxLayout.X_AXIS));
+        container.add(inputName);
+
+        JLabel nameLabel = new JLabel("Your Name: ");
+        inputName.add(nameLabel);
+
+        JTextField nameInput = new JTextField(20);
+        nameInput.setText("Player101");
+        inputName.add(nameInput);
+
         // Connect Button
         JButton connectButton = new JButton("Join");
         container.add(connectButton);
@@ -49,14 +63,12 @@ public class ServerPanel extends JPanel {
             int portInt = Integer.parseInt(port);
             try {
 
-                client.connect(host, portInt);
+                client.connect(host, portInt, nameInput.getText());
+
                 mainFrame.showLobbyPanel();
-            } catch (Exception e2) {
+            } catch (IOException e2) {
                 e2.printStackTrace();
             }
-
-
-
         });
     }
 }

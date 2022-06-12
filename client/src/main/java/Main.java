@@ -1,10 +1,10 @@
-import client.Client;
+import client.GameClient;
+import com.esotericsoftware.kryonet.*;
 import views.MainFrame;
 
 public class Main {
     public static void main(String[] args) {
-        Client client = new Client();
-        client.runThread();
+        GameClient client = new GameClient();
 
         MainFrame mainFrame = new MainFrame(client);
     }

@@ -2,7 +2,7 @@ package common.messages;
 
 import common.enums.MoveDirection;
 
-public class MoveSignal extends Message {
+public class GameMoveMessage {
     public String gameId;
     public MoveDirection moveDirection;
 }

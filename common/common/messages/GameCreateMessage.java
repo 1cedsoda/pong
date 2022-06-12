@@ -1,5 +1,6 @@
 package common.messages;
 
-public class GameCreateSignal extends Message {
+public class GameCreateMessage {
     private String playerName;
+
 }

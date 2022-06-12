@@ -1,6 +1,7 @@
 package controllers;
 
-import common.messages.GameCreateSignal;
+import com.esotericsoftware.kryonet.Connection;
+import common.messages.GameCreateMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +15,13 @@ public class Games {
 
     public Game getByGameId(String gameId) {
         for (Game game : games) {
-            if (game.gameId.equals(gameId)) {
+            if (game.state.gameId.equals(gameId)) {
                 return game;
             }
         }
         return null;
     }
 
-    public void onGameCreateSignal(GameCreateSignal message) {
+    public void onGameCreateSignal(GameCreateMessage message, Connection connection) {
     }
 }

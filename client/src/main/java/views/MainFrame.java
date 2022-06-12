@@ -1,6 +1,6 @@
 package views;
 
-import client.Client;
+import client.GameClient;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,7 @@ public class MainFrame extends JFrame {
 
     private JPanel cards;
 
-    public MainFrame(Client client) {
+    public MainFrame(GameClient client) {
         setTitle("PONG");
         setSize(300, 200);
         setLocationRelativeTo(null);

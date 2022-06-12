@@ -1,8 +1,8 @@
-import controllers.Game;
 import controllers.Games;
 import controllers.Lobby;
-import server.MessageRouter;
-import server.Server;
+import server.GameServer;
+
+import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,20 +10,16 @@ public class Main {
         Games games =new Games();
         Lobby lobby = new Lobby();
 
-        // Create Message Router
-        MessageRouter messageRouter = new MessageRouter(games, lobby);
-
         // Thread communication.Server
-        Server server = new Server(messageRouter);
-        server.runThread();
+        GameServer server = new GameServer();
 
         //Line movement = new Line(new Point(0.8, 0.8), new Point(1.2, 1.2));
         //Collision c = Collision.calculateCollisonWithWalls(movement);
         //System.out.println(c);
 
-        Game g = Game.newGame();
+        //Game g = Game.newGame();
 
-        GameTimer gt = new GameTimer(g);
-        gt.runThread();
+        //GameTimer gt = new GameTimer(g);
+        //gt.runThread();
     }
 }

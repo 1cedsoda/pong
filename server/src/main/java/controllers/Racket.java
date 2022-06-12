@@ -2,23 +2,32 @@ package controllers;
 
 import common.geometry.Line;
 import common.geometry.Point;
-import common.models.RacketModel;
+import common.states.RacketState;
 
-public class Racket extends RacketModel<Game, Ball, Racket, Player> {
+public class Racket {
 
-    public Racket(int score, double size, Point position, Player player) {
-        super(score, size, position, player);
+    RacketState state;
+
+    public Racket(RacketState state) {
+        this.state = state;
     }
 
-    public Racket(Player player, double x) {
-        super(player, x);
+    public Racket(String name, double x) {
+        this.state = new RacketState();
+        this.state.name = name;
+        this.state.position = new Point(x, 0);
+        this.state.score = 0;
+        this.state.size = 0.3;
     }
 
     public void incrementScore() {
-        this.score++;
+        this.state.score++;
     }
 
     public Line getLine() {
-        return new Line(new Point(position.x, position.y + size / 2), new Point(position.x, position.y - size / 2));
+        return new Line(
+                new Point(state.position.x, state.position.y + state.size / 2),
+                new Point(state.position.x, state.position.y - state.size / 2)
+        );
     }
 }
