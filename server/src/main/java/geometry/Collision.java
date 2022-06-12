@@ -2,28 +2,38 @@ package geometry;
 
 import common.geometry.Line;
 import common.geometry.Point;
-import common.models.RacketModel;
-import controllers.RacketController;
+import common.geometry.Vector;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Collision implements Serializable {
-    Point intersection;
-    double d;
+    public Point point;
+    public double distance;
 
-    public Collision(Point intersection, double intersectionDistance) {
-        this.intersection = intersection;
-        this.d = intersectionDistance;
+    public double reflectionAngle;
+
+    public static List<Line> walls = new ArrayList<Line>(List.of(
+            new Line(new Point(-1, -1), new Point(-1, 1)), // Prioritize left wall
+            new Line(new Point(1, 1), new Point(1, -1)), // Prioritize right wall
+            new Line(new Point(-1, 1), new Point(1, 1)),
+            new Line(new Point(1, -1), new Point(-1, -1)))
+    );
+
+    public Collision(Point point, double intersectionDistance, double reflectionAngle) {
+        this.point = point;
+        this.distance = intersectionDistance;
+        this.reflectionAngle = reflectionAngle;
     }
 
-    public Collision(Point intersection, Point start) {
-        this.intersection = intersection;
-        this.d = start.getDistance(intersection);
+    public Collision(Point point, Point start, double reflectionAngle) {
+        this.point = point;
+        this.distance = start.getDistance(point);
+        this.reflectionAngle = reflectionAngle;
     }
 
-    public static Collision calulateCollision(Line primaryLine, Line secondaryLine) {
+    public static Collision withLine(Line primaryLine, Line secondaryLine) {
 
         Point A = primaryLine.start;
         Point B = primaryLine.end;
@@ -44,8 +54,7 @@ public class Collision implements Serializable {
 
         if (determinant == 0)
         {
-            // The lines are parallel. This is simplified
-            // by returning a pair of FLT_MAX
+            // The lines are parallel.
             return null;
         }
         else
@@ -53,49 +62,33 @@ public class Collision implements Serializable {
             double x = (b2*c1 - b1*c2)/determinant;
             double y = (a1*c2 - a2*c1)/determinant;
             Point i = new Point(x, y);
-            if (secondaryLine.pointIsOnLine(i)) {
-                return new Collision(i, primaryLine.start.getDistance(i));
+            if (secondaryLine.pointIsOnLine(i) && primaryLine.pointIsOnLine(i)) {
+                Vector primaryVector = primaryLine.getVector();
+                Vector reflectionVector = primaryVector.reflectFromAxialLine(secondaryLine);
+                double reflectionAngle = reflectionVector.direction;
+                return new Collision(i, primaryLine.start.getDistance(i), reflectionAngle);
             }
             return null;
         }
-
-
-
-
     }
 
-    public static Collision calculateCollisonWithWalls(Line primarayLine) {
-        List<Line> walls = new ArrayList<Line>();
-        walls.add(new Line(new Point(-1, -1), new Point(-1, 1)));
-        walls.add(new Line(new Point(-1, 1), new Point(1, 1)));
-        walls.add(new Line(new Point(1, 1), new Point(1, -1)));
-        walls.add(new Line(new Point(1, -1), new Point(-1, -1)));
+    public static Collision withWalls(Line primarayLine) {
+        // Bound shortcut
+        if (primarayLine.end.inGameArea()) {
+            return null;
+        }
 
         for (Line wall : walls) {
-            Collision collision = Collision.calulateCollision(primarayLine, wall);
+            Collision collision = Collision.withLine(primarayLine, wall);
             if (collision != null) {
+                System.out.println("Collision with wall " + wall + " (Line:"+primarayLine+")");
                 return collision;
             }
         }
         return null;
     }
 
-    public static Collision calculateCollsionWithRackets(Line primaryLine, RacketController leftRacketController, RacketController rightRacketController) {
-        Collision collision = calculateCollsionWithRacket(primaryLine, leftRacketController, 0);
-        if (collision != null) {
-            return collision;
-        }
-
-        collision = calculateCollsionWithRacket(primaryLine, rightRacketController, 1);
-        return collision;
-    }
-
-    public static Collision calculateCollsionWithRacket(Line primaryLine, RacketController racketController, double x) {
-        Line racketLine = racketController.getLine(x);
-        return Collision.calulateCollision(primaryLine, racketLine);
-    }
-
     public String toString() {
-        return "{ " + intersection.toString() + " , " + d + " }";
+        return "{ " + point.toString() + " , " + distance + " }";
     }
 }

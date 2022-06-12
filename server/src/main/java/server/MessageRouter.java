@@ -1,36 +1,35 @@
 package server;
 
-import controllers.BallController;
 import common.messages.*;
-import common.controllers.LobbyController;
-import controllers.GameController;
-import controllers.GamesController;
+import controllers.Game;
+import controllers.Games;
+import controllers.Lobby;
 
 import java.util.List;
 
 public class MessageRouter {
-    private GamesController gamesController;
-    private LobbyController lobbyController;
+    private Games games;
+    private Lobby lobby;
 
-    public MessageRouter(GamesController gamesController, LobbyController lobbyController) {
-        this.gamesController = gamesController;
-        this.lobbyController = lobbyController;
+    public MessageRouter(Games games, Lobby lobby) {
+        this.games = games;
+        this.lobby = lobby;
     }
 
     public void routeMessages(List<ConnectedMessage> messages) {
         for (ConnectedMessage message : messages) {
             if ( message.message instanceof PlayerUpdate) {
-                lobbyController.onPlayerUpdate((PlayerUpdate) message.message);
+                //lobby.onPlayerUpdate((PlayerUpdate) message.message);
             } else if (message.message instanceof MoveSignal) {
                 String gameId = ((MoveSignal) message.message).gameId;
-                GameController gameController = (GameController) gamesController.getByGameId(gameId);
-                gameController.onMoveSignal((MoveSignal) message.message);
+                Game game = (Game) games.getByGameId(gameId);
+                game.onMoveSignal((MoveSignal) message.message);
             } else if (message.message instanceof GameJoinSignal) {
                 String gameId = ((GameJoinSignal) message.message).gameId;
-                GameController gameController = (GameController) gamesController.getByGameId(gameId);
-                gameController.onGameJoinSignal((GameJoinSignal) message.message, message.connection);
+                Game game = (Game) games.getByGameId(gameId);
+                game.onGameJoinSignal((GameJoinSignal) message.message, message.connection);
             } else if (message.message instanceof GameCreateSignal) {
-                gamesController.onGameCreateSignal((GameCreateSignal) message.message);
+                games.onGameCreateSignal((GameCreateSignal) message.message);
             }
         }
     }

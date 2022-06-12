@@ -11,18 +11,24 @@ public class Line implements Serializable {
         this.end = end;
     }
 
-    public static Line scalePoint(Point start, double dx, double dy) {
-        Point end = new Point(start.x + dx, start.y + dy);
-        return new Line(start , end);
-    }
-
     public double getDistance() {
         return start.getDistance(end);
     }
 
     public boolean pointIsOnLine(Point p) {
         double distanceSum = p.getDistance(end) + p.getDistance(start);
-        return distanceSum == 2.0;
+        return distanceSum == getDistance();
+    }
+
+    // get vector pointing away 90 degrees from line
+    public Vector getNormalVector() {
+        double x = end.x - start.x;
+        double y = end.y - start.y;
+        return Vector.xy(y, -x);
+    }
+
+    public Vector getVector() {
+        return Vector.xy(end.x - start.x, end.y - start.y);
     }
 
     @Override

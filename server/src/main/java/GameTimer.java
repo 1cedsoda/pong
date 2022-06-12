@@ -1,4 +1,4 @@
-import controllers.GameController;
+import controllers.Game;
 
 import java.util.Date;
 
@@ -7,10 +7,10 @@ public class GameTimer implements Runnable {
     private long startTime = 0;
     private long lastTime = 0;
 
-    private GameController gameController;
+    private Game game;
 
-    public GameTimer(GameController gameController) {
-        this.gameController = gameController;
+    public GameTimer(Game game) {
+        this.game = game;
     }
 
     @Override
@@ -19,14 +19,15 @@ public class GameTimer implements Runnable {
             // 30 times a second create event
 
                 try {
-                    Thread.sleep(1000/30);
+                    Thread.sleep(500);
                     if (startTime == 0) {
                         startTime = new Date().getTime();
                         lastTime = startTime;
                     } else {
-                        long timePassed = new Date().getTime() - lastTime;
-                        lastTime = new Date().getTime();
-                        gameController.onTimerInvocation(timePassed);
+                        long now = new Date().getTime();
+                        double timePassed = now - lastTime;
+                        lastTime = now;
+                        game.onTimerInvocation(timePassed/1000);
                     }
 
                 } catch (InterruptedException e) {
