@@ -11,11 +11,8 @@ public class Client implements Runnable {
 
     public void connect(String host, int port) {
         try {
-            System.out.println("1");
             Socket socket = new Socket(host, port);
-            System.out.println("2");
             this.connection = new Connection(socket);
-            System.out.println("3");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

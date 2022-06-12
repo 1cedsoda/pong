@@ -1,15 +1,19 @@
 package common.models;
 
-public class GameModel {
+public class GameModel<
+        GAME extends GameModel<GAME, BALL, RACKET, PLAYER>,
+        BALL extends BallModel<GAME, BALL, RACKET, PLAYER>,
+        RACKET extends RacketModel<GAME, BALL, RACKET, PLAYER>,
+        PLAYER extends PlayerModel<GAME, BALL, RACKET, PLAYER>> {
 
     public String gameId;
-    public RacketModel leftPlayerState;
-    public RacketModel rightPlayerState;
-    public BallModel ballState;
+    public RACKET leftRacket;
+    public RACKET rightRacket;
+    public BALL ball;
 
-    public GameModel(RacketModel leftPlayerState, RacketModel rightPlayerState, BallModel ballState) {
-        this.leftPlayerState = leftPlayerState;
-        this.rightPlayerState = rightPlayerState;
-        this.ballState = ballState;
+    public GameModel(RACKET leftRacket, RACKET rightRacket, BALL ball) {
+        this.leftRacket = leftRacket;
+        this.rightRacket = rightRacket;
+        this.ball = ball;
     }
 }
