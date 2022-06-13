@@ -18,7 +18,7 @@ public class Lobby {
         this.state = state;
     }
 
-    List<Connection> connections = new ArrayList<Connection>();
+    List<PlayerConnection> connections = new ArrayList<PlayerConnection>();
 
     public Lobby() {
         this.state = new LobbyState();
@@ -30,9 +30,27 @@ public class Lobby {
             connection.name = message.name;
         }
 
+        sendLobbyState(gameServer);
+    }
+
+    private void sendLobbyState(GameServer gameServer) {
+        this.updateLobbyState(gameServer);
+
         LobbyStateMessage lobbyStateMessage = new LobbyStateMessage();
         lobbyStateMessage.lobby = this.state;
 
         gameServer.server.sendToAllTCP(lobbyStateMessage);
+    }
+
+    public void updateLobbyState(GameServer gameServer) {
+        this.state.players = new ArrayList<LobbyEntryState>();
+
+        List<Connection> connections = List.of(gameServer.server.getConnections());
+        for (Connection connection : connections) {
+            PlayerConnection pc = (PlayerConnection) connection;
+            LobbyEntryState lobbyEntryState = new LobbyEntryState();
+            lobbyEntryState.name = pc.name;
+            this.state.players.add(lobbyEntryState);
+        }
     }
 }

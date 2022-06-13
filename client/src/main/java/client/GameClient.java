@@ -3,7 +3,9 @@ package client;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.*;
 import common.messages.LobbyJoinMessage;
+import common.messages.LobbyStateMessage;
 import common.messages.Network;
+import controllers.Lobby;
 
 import java.io.IOException;
 
@@ -12,11 +14,18 @@ public class GameClient {
     private Kryo kryo;
 
     private String name;
+
+    public Lobby lobby;
+
     public GameClient() {
+        lobby = new Lobby();
+
         client = new Client();
         client.start();
 
         Network.register(client);
+
+        GameClient gameClient = this;
 
         client.addListener(new Listener() {
             public void connected (Connection connection) {
@@ -27,9 +36,9 @@ public class GameClient {
             }
 
             public void received (Connection connection, Object object) {
-                System.out.println("Received: " + object);
-                if (object instanceof LobbyJoinMessage message) {
-                    System.out.println(message);
+                System.out.println("-> " + object);
+                if (object instanceof LobbyStateMessage message) {
+                    lobby.onLobbyStateMessage(message, connection, gameClient);
                 }
             }
 

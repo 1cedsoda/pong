@@ -37,7 +37,7 @@ public class GameServer {
             public void received (Connection connection, Object object) {
                 PlayerConnection playerConnection = (PlayerConnection) connection;
 
-                System.out.println("Received: " + object);
+                System.out.println("-> " + object);
                 if (object instanceof LobbyJoinMessage) {
                     LobbyJoinMessage message = (LobbyJoinMessage) object;
                     lobby.onLobbyJoinMessage(message, playerConnection, gameServer);
