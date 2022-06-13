@@ -2,6 +2,7 @@ package views;
 
 import client.GameClient;
 import common.enums.PlayerActivity;
+import common.messages.GameJoinMessage;
 import common.states.LobbyEntryState;
 import controllers.Lobby;
 import utils.ImageCreate;
@@ -45,6 +46,17 @@ public class LobbyPanel extends JPanel {
             JLabel label = new JLabel(lobbyEntryState.name);
             playerRow.add(label);
             playerColumn.add(playerRow, SwingConstants.CENTER);
+
+            // If gameId is not null show join button
+            if (lobbyEntryState.gameId != null && lobbyEntryState.activity == PlayerActivity.WAITING) {
+                JButton joinButton = new JButton("Join");
+                joinButton.addActionListener(e -> {
+                    GameJoinMessage gameJoinMessage = new GameJoinMessage();
+                    gameJoinMessage.gameId = lobbyEntryState.gameId;
+                    GameClient.instance.client.sendTCP(gameJoinMessage);
+                });
+                playerRow.add(joinButton);
+            }
         }
         this.add(playerColumn);
 

@@ -2,8 +2,10 @@ package server;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.*;
+import common.messages.GameJoinMessage;
 import common.messages.LobbyJoinMessage;
 import common.messages.Network;
+import controllers.Games;
 import controllers.Lobby;
 
 import java.io.IOException;
@@ -14,14 +16,19 @@ public class GameServer {
     Lobby lobby;
     public Server server;
 
+    public Games games;
+
+    public static GameServer instance;
+
     private Kryo kryo;
 
     public GameServer()  {
+        games = new Games();
         lobby = new Lobby();
 
         System.out.println("Server started");
 
-        GameServer gameServer = this;
+        instance = this;
 
         server = new Server() {
             protected Connection newConnection () {
@@ -38,9 +45,12 @@ public class GameServer {
                 PlayerConnection playerConnection = (PlayerConnection) connection;
 
                 System.out.println("-> " + object);
-                if (object instanceof LobbyJoinMessage) {
-                    LobbyJoinMessage message = (LobbyJoinMessage) object;
-                    lobby.onLobbyJoinMessage(message, playerConnection, gameServer);
+                if (object instanceof LobbyJoinMessage message) {
+                    lobby.onLobbyJoinMessage(message, playerConnection);
+                }
+
+                if(object instanceof GameJoinMessage message) {
+                    games.onGameJoinMessage(message, playerConnection);
                 }
             }
 

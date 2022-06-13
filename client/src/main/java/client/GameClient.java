@@ -2,10 +2,7 @@ package client;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.*;
-import common.messages.GameCreateMessage;
-import common.messages.LobbyJoinMessage;
-import common.messages.LobbyStateMessage;
-import common.messages.Network;
+import common.messages.*;
 import controllers.Lobby;
 import views.MainFrame;
 
@@ -77,8 +74,9 @@ public class GameClient {
     }
 
     public void createGame() {
-        // Send GameCreateMessage to server
+        // Send GameOpenMessage to server
         // Server will create a new game and send it to all clients
+        GameJoinMessage gameJoinMessage = new GameJoinMessage();
 
         // Show GamePanel
         mainFrame.showGamePanel();

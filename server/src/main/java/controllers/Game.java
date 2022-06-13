@@ -1,11 +1,13 @@
 package controllers;
 
 import com.esotericsoftware.kryonet.Connection;
-import common.messages.GameJoinMessage;
+import common.Utils;
+import common.geometry.Point;
 import common.messages.GameMoveMessage;
 import common.states.BallState;
 import common.states.GameState;
 import common.states.RacketState;
+import server.PlayerConnection;
 
 import java.util.List;
 
@@ -13,32 +15,58 @@ public class Game {
     private List<Connection> connections;
 
     GameState state;
-
+    PlayerConnection leftPlayer;
+    PlayerConnection rightPlayer;
     Racket leftRacket;
     Racket rightRacket;
-
     Ball ball;
 
-    public Game(RacketState leftRacket, RacketState rightRacket, BallState ball) {
+    public Game() {
         this.state = new GameState();
-        this.state.leftRacket = leftRacket;
-        this.state.rightRacket = rightRacket;
-        this.state.ball = ball;
+        this.state.gameId = Utils.randomString(10);
+        this.state.ball = new BallState();
 
-        this.leftRacket = new Racket(state.leftRacket);
-        this.rightRacket = new Racket(state.rightRacket);
         this.ball = new Ball(state.ball);
     }
+
     public void onMoveSignal(GameMoveMessage message, Connection connection) {
-
-    }
-
-    public void onGameJoinSignal(GameJoinMessage message) {
 
     }
 
     public void onTimerInvocation(double secondsPassed) {
         ball.calculateStep(secondsPassed, ball.state.position, this);
         System.out.println(ball.state.position);
+    }
+
+    public boolean addPlayer(PlayerConnection playerConnection) {
+        if (this.state.leftRacket == null) {
+            RacketState racketState = new RacketState();
+            racketState.score = 0;
+            racketState.position = new Point(-1, 0);
+            racketState.size = 0.3;
+            this.state.leftRacket = racketState;
+            this.leftRacket = new Racket(this.state.leftRacket);
+            this.leftPlayer = playerConnection;
+            return true;
+        } else if (this.state.rightRacket == null) {
+            RacketState racketState = new RacketState();
+            racketState.score = 0;
+            racketState.position = new Point(1, 0);
+            racketState.size = 0.3;
+            this.state.rightRacket = racketState;
+            this.rightRacket = new Racket(this.state.rightRacket);
+            this.rightPlayer = playerConnection;
+            return true;
+        }
+        return false;
+    }
+
+    public void sendToPlayers(Object message) {
+        if (this.leftPlayer != null) {
+            this.leftPlayer.sendTCP(message);
+        }
+        if (this.rightPlayer != null) {
+            this.rightPlayer.sendTCP(message);
+        }
     }
 }

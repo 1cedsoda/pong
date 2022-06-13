@@ -14,7 +14,7 @@ public class Network {
         Kryo kryo = endPoint.getKryo();
 
         // Messages
-        kryo.register(GameCreateMessage.class);
+        kryo.register(GameOpenMessage.class);
         kryo.register(GameJoinMessage.class);
         kryo.register(GameMoveMessage.class);
         kryo.register(GameStateMessage.class);

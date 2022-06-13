@@ -25,27 +25,27 @@ public class Lobby {
         this.state.players = new ArrayList<LobbyEntryState>();
     }
 
-    public void onLobbyJoinMessage(LobbyJoinMessage message, PlayerConnection connection, GameServer gameServer) {
+    public void onLobbyJoinMessage(LobbyJoinMessage message, PlayerConnection connection) {
         if (connection.name == null) {
             connection.name = message.name;
         }
 
-        sendLobbyState(gameServer);
+        sendLobbyState();
     }
 
-    private void sendLobbyState(GameServer gameServer) {
-        this.updateLobbyState(gameServer);
+    private void sendLobbyState() {
+        this.updateLobbyState();
 
         LobbyStateMessage lobbyStateMessage = new LobbyStateMessage();
         lobbyStateMessage.lobby = this.state;
 
-        gameServer.server.sendToAllTCP(lobbyStateMessage);
+        GameServer.instance.server.sendToAllTCP(lobbyStateMessage);
     }
 
-    public void updateLobbyState(GameServer gameServer) {
+    public void updateLobbyState() {
         this.state.players = new ArrayList<LobbyEntryState>();
 
-        List<Connection> connections = List.of(gameServer.server.getConnections());
+        List<Connection> connections = List.of(GameServer.instance.server.getConnections());
         for (Connection connection : connections) {
             PlayerConnection pc = (PlayerConnection) connection;
             LobbyEntryState lobbyEntryState = new LobbyEntryState();

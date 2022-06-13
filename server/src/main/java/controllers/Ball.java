@@ -13,6 +13,10 @@ public class Ball {
         this.state = state;
     }
 
+    public Ball() {
+        this.state = new BallState();
+    }
+
     public void calculateStep(double seconds, Point fromPosition, Game game){
         // calculate new x and y position with current ball.x and ball.xv
         Line movement = fromPosition.addVector(state.velocity.multiply(seconds));
