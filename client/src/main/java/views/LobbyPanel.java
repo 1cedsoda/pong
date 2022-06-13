@@ -18,8 +18,9 @@ public class LobbyPanel extends JPanel {
     }
 
     public void refresh() {
-        this.setLayout(new BorderLayout());
+        System.out.println("Refreshing lobbyPanel");
         removeAll();
+        this.setLayout(new BorderLayout());
 
         // Title
         JPanel titleRow = new JPanel();
@@ -43,8 +44,9 @@ public class LobbyPanel extends JPanel {
             // Name
             JLabel label = new JLabel(lobbyEntryState.name);
             playerRow.add(label);
-            this.add(playerRow, SwingConstants.CENTER);
+            playerColumn.add(playerRow, SwingConstants.CENTER);
         }
+        this.add(playerColumn);
 
         // Bottom Row
         JPanel bottomRow = new JPanel();
