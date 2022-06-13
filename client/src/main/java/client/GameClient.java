@@ -2,20 +2,27 @@ package client;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.*;
+import common.messages.GameCreateMessage;
 import common.messages.LobbyJoinMessage;
 import common.messages.LobbyStateMessage;
 import common.messages.Network;
 import controllers.Lobby;
+import views.MainFrame;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 public class GameClient {
-    private Client client;
+
+    static public GameClient instance;
+    public Client client;
     private Kryo kryo;
 
     private String name;
 
     public Lobby lobby;
+
+    public MainFrame mainFrame;
 
     public GameClient() {
         lobby = new Lobby();
@@ -38,13 +45,15 @@ public class GameClient {
             public void received (Connection connection, Object object) {
                 System.out.println("-> " + object);
                 if (object instanceof LobbyStateMessage message) {
-                    lobby.onLobbyStateMessage(message, connection, gameClient);
+                    lobby.onLobbyStateMessage(message, connection);
                 }
             }
 
             public void disconnected (Connection connection) {
             }
         });
+
+        instance = this;
     }
 
     public void connect(String domain, int tcp, String name) throws IOException {
@@ -65,5 +74,13 @@ public class GameClient {
 
     public void disconnect() {
         client.stop();
+    }
+
+    public void createGame() {
+        // Send GameCreateMessage to server
+        // Server will create a new game and send it to all clients
+
+        // Show GamePanel
+        mainFrame.showGamePanel();
     }
 }

@@ -2,6 +2,8 @@ package common.messages;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
+import common.enums.MoveDirection;
+import common.enums.PlayerActivity;
 import common.states.*;
 
 import java.util.ArrayList;
@@ -25,6 +27,10 @@ public class Network {
         kryo.register(LobbyEntryState.class);
         kryo.register(LobbyState.class);
         kryo.register(RacketState.class);
+
+        // Enums
+        kryo.register(PlayerActivity.class);
+        kryo.register(MoveDirection.class);
 
         // Other
         kryo.register(ArrayList.class);

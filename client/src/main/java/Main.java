@@ -5,7 +5,6 @@ import views.MainFrame;
 public class Main {
     public static void main(String[] args) {
         GameClient client = new GameClient();
-
-        MainFrame mainFrame = new MainFrame(client);
+        client.mainFrame = new MainFrame(client);
     }
 }

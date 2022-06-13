@@ -6,11 +6,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
-    private ServerPanel serverPanel;
-    private LobbyPanel lobbyPanel;
-    private GamePanel gamePanel;
+    public ServerPanel serverPanel;
+    public LobbyPanel lobbyPanel;
+    public GamePanel gamePanel;
 
     private JPanel cards;
+
+    //singleton
+    public static MainFrame instance;
 
     public MainFrame(GameClient client) {
         setTitle("PONG");
@@ -20,7 +23,7 @@ public class MainFrame extends JFrame {
         setVisible(true);
 
         serverPanel = new ServerPanel(this, client);
-        lobbyPanel = new LobbyPanel(this, client);
+        lobbyPanel = new LobbyPanel();
         gamePanel = new GamePanel();
 
         cards = new JPanel(new CardLayout());
@@ -33,6 +36,8 @@ public class MainFrame extends JFrame {
         showServerPanel();
 
         pack();
+
+        instance = this;
     }
 
     private  void showPanel(String panelName) {

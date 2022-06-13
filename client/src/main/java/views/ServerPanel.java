@@ -1,11 +1,9 @@
 package views;
 
 import client.GameClient;
-import common.messages.LobbyJoinMessage;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.net.ConnectException;
 
 public class ServerPanel extends JPanel {
     public ServerPanel(MainFrame mainFrame, GameClient client) {
