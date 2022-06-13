@@ -12,6 +12,7 @@ import java.io.IOException;
 
 public class GameServer {
     static int portTcp = 2347;
+    static int portUdp = portTcp;
 
     Lobby lobby;
     public Server server;
@@ -19,8 +20,6 @@ public class GameServer {
     public Games games;
 
     public static GameServer instance;
-
-    private Kryo kryo;
 
     public GameServer()  {
         games = new Games();
@@ -55,16 +54,18 @@ public class GameServer {
             }
 
             public void connected (Connection connection) {
+                connection.setKeepAliveTCP(500);
                 System.out.println("New connection");
             }
 
-            public void disconnect (Connection connection) {
-                System.out.println("Connection closed");
+            public void disconnected (Connection connection) {
+                System.out.println("Connection closed. " + server.getConnections().length + " connections remaining.");
+                instance.lobby.sendLobbyState();
             }
         });
 
         try {
-            server.bind(portTcp);
+            server.bind(portTcp, portUdp);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

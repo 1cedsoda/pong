@@ -6,4 +6,5 @@ public class LobbyEntryState {
     public String name;
     public PlayerActivity activity = PlayerActivity.IDLE;
     public String gameId;
+    public boolean isYou;
 }

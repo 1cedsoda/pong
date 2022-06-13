@@ -25,7 +25,6 @@ public class GameClient {
         lobby = new Lobby();
 
         client = new Client();
-        client.start();
 
         Network.register(client);
 
@@ -41,6 +40,9 @@ public class GameClient {
 
             public void received (Connection connection, Object object) {
                 System.out.println("-> " + object);
+                if (object instanceof FrameworkMessage.KeepAlive message) {
+                    client.sendTCP(message);
+                }
                 if (object instanceof LobbyStateMessage message) {
                     lobby.onLobbyStateMessage(message, connection);
                 }
@@ -55,11 +57,13 @@ public class GameClient {
 
     public void connect(String domain, int tcp, String name) throws IOException {
         this.name = name;
+        this.client.start();
 
         new Thread("Connect") {
             public void run () {
                 try {
-                    client.connect(5000, domain, tcp);
+                    int udp = tcp;
+                    client.connect(5000, domain, tcp, udp);
                     // Server communication after connection can go here, or in Listener#connected().
                 } catch (IOException ex) {
                     ex.printStackTrace();

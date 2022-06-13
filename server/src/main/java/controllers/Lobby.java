@@ -33,7 +33,7 @@ public class Lobby {
         sendLobbyState();
     }
 
-    private void sendLobbyState() {
+    public void sendLobbyState() {
         this.updateLobbyState();
 
         LobbyStateMessage lobbyStateMessage = new LobbyStateMessage();
