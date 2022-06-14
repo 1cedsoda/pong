@@ -21,6 +21,8 @@ public class Game {
     Racket rightRacket;
     Ball ball;
 
+    GameTimer timer;
+
     public Game() {
         this.state = new GameState();
         this.state.gameId = Utils.randomString(10);
@@ -65,6 +67,20 @@ public class Game {
         return false;
     }
 
+    public void removePlayer(PlayerConnection playerConnection) {
+        if (this.rightPlayer == playerConnection) {
+            System.out.println("Game " +state.gameId+ " : Removing right player");
+            this.state.rightRacket = null;
+            this.rightRacket = null;
+            this.rightPlayer = null;
+        } else if (this.leftPlayer == playerConnection) {
+            System.out.println("Game " +state.gameId+ " : Removing left player");
+            this.state.leftRacket = null;
+            this.leftRacket = null;
+            this.leftPlayer = null;
+        }
+    }
+
     public void sendToPlayers(Object message) {
         if (this.leftPlayer != null) {
             this.leftPlayer.sendTCP(message);
@@ -80,5 +96,18 @@ public class Game {
 
     public boolean isFull() {
         return this.leftPlayer != null && this.rightPlayer != null;
+    }
+
+    // isEmpty
+    public boolean isEmpty() {
+        return this.leftPlayer == null && this.rightPlayer == null;
+    }
+
+    public void reset() {
+        this.timer = new GameTimer(this);
+    }
+
+    public void start() {
+        this.timer.runThread();
     }
 }

@@ -2,6 +2,7 @@ package server;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.*;
+import common.messages.GameExitMessage;
 import common.messages.GameJoinMessage;
 import common.messages.LobbyJoinMessage;
 import common.messages.Network;
@@ -55,6 +56,10 @@ public class GameServer {
 
                 if(object instanceof GameJoinMessage message) {
                     games.onGameJoinMessage(message, playerConnection);
+                }
+
+                if(object instanceof GameExitMessage message) {
+                    games.onGameExitMessage(message, playerConnection);
                 }
             }
 

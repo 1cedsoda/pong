@@ -1,3 +1,5 @@
+package controllers;
+
 import controllers.Game;
 
 import java.util.Date;

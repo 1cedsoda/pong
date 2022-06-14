@@ -1,6 +1,7 @@
 package controllers;
 
 import com.esotericsoftware.kryonet.Connection;
+import common.messages.GameExitMessage;
 import common.messages.GameJoinMessage;
 import common.messages.GameOpenMessage;
 import server.GameServer;
@@ -53,6 +54,20 @@ public class Games {
         }
 
         // Send lobby State
+        GameServer.instance.lobby.sendLobbyState();
+    }
+
+    public void onGameExitMessage(GameExitMessage message, PlayerConnection playerConnection) {
+        System.out.println("onGameExitMessage");
+        Game game = getByGameId(message.gameId);
+        if (game != null) {
+            game.removePlayer(playerConnection);
+            if (game.isEmpty()) {
+                games.remove(game);
+            } else {
+                game.reset();
+            }
+        }
         GameServer.instance.lobby.sendLobbyState();
     }
 

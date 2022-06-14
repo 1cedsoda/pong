@@ -17,7 +17,6 @@ public class MainFrame extends JFrame {
 
     public MainFrame(GameClient client) {
         setTitle("PONG");
-        setSize(300, 200);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
@@ -47,13 +46,16 @@ public class MainFrame extends JFrame {
 
     public void showServerPanel() {
         showPanel("server");
+        setSize(300, 200);
     }
 
     public void showLobbyPanel() {
         showPanel("lobby");
+        setSize(300, 200);
     }
 
     public void showGamePanel() {
         showPanel("game");
+        setSize(300, 300);
     }
 }
