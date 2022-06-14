@@ -38,16 +38,16 @@ public class ServerPanel extends JPanel {
         inputPort.add(portInput);
 
         // Input Name
-        JPanel inputName = new JPanel();
-        inputName.setLayout(new BoxLayout(inputName, BoxLayout.X_AXIS));
-        container.add(inputName);
+        //JPanel inputName = new JPanel();
+        //inputName.setLayout(new BoxLayout(inputName, BoxLayout.X_AXIS));
+        //container.add(inputName);
 
-        JLabel nameLabel = new JLabel("Your Name: ");
-        inputName.add(nameLabel);
+        //JLabel nameLabel = new JLabel("Your Name: ");
+        //inputName.add(nameLabel);
 
-        JTextField nameInput = new JTextField(20);
-        nameInput.setText("Player101");
-        inputName.add(nameInput);
+        //JTextField nameInput = new JTextField(20);
+        //nameInput.setText();
+        //inputName.add(nameInput);
 
         // Connect Button
         JButton connectButton = new JButton("Join");
@@ -61,7 +61,7 @@ public class ServerPanel extends JPanel {
             int portInt = Integer.parseInt(port);
             try {
 
-                client.connect(host, portInt, nameInput.getText());
+                client.connect(host, portInt);
 
                 mainFrame.showLobbyPanel();
             } catch (IOException e2) {

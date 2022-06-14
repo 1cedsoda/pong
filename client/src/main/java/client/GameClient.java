@@ -8,6 +8,8 @@ import views.MainFrame;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class GameClient {
 
@@ -39,10 +41,13 @@ public class GameClient {
             }
 
             public void received (Connection connection, Object object) {
-                System.out.println("-> " + object);
                 if (object instanceof FrameworkMessage.KeepAlive message) {
                     client.sendTCP(message);
+                    return;
                 }
+
+                System.out.println("-> " + object);
+
                 if (object instanceof LobbyStateMessage message) {
                     lobby.onLobbyStateMessage(message, connection);
                 }
@@ -55,8 +60,8 @@ public class GameClient {
         instance = this;
     }
 
-    public void connect(String domain, int tcp, String name) throws IOException {
-        this.name = name;
+    public void connect(String domain, int tcp) throws IOException {
+        this.name = getUsername();
         this.client.start();
 
         new Thread("Connect") {
@@ -84,5 +89,13 @@ public class GameClient {
 
         // Show GamePanel
         mainFrame.showGamePanel();
+    }
+
+    private String getUsername() {
+        return Arrays.stream(System
+                        .getProperty("user.name")
+                        .split("\\s+"))
+                .map(t -> t.substring(0, 1).toUpperCase() + t.substring(1))
+                .collect(Collectors.joining(" "));
     }
 }

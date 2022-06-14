@@ -43,7 +43,12 @@ public class GameServer {
             public void received (Connection connection, Object object) {
                 PlayerConnection playerConnection = (PlayerConnection) connection;
 
+                if (object instanceof FrameworkMessage.KeepAlive) {
+                    return;
+                }
+
                 System.out.println("-> " + object);
+
                 if (object instanceof LobbyJoinMessage message) {
                     lobby.onLobbyJoinMessage(message, playerConnection);
                 }
