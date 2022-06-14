@@ -1,6 +1,7 @@
 package controllers;
 
 import com.esotericsoftware.kryonet.Connection;
+import common.enums.PlayerActivity;
 import common.messages.LobbyJoinMessage;
 import common.messages.LobbyStateMessage;
 import common.states.LobbyEntryState;
@@ -29,7 +30,6 @@ public class Lobby {
         if (connection.name == null) {
             connection.name = message.name;
         }
-
         sendLobbyState();
     }
 
@@ -50,6 +50,15 @@ public class Lobby {
             PlayerConnection pc = (PlayerConnection) connection;
             LobbyEntryState lobbyEntryState = new LobbyEntryState();
             lobbyEntryState.name = pc.name;
+            Game playerGame = GameServer.instance.games.getGameByPlayerConnection(pc);
+            if (playerGame != null) {
+                lobbyEntryState.gameId = playerGame.state.gameId;
+                if (playerGame.isFull()) {
+                    lobbyEntryState.activity = PlayerActivity.PLAYING;
+                } else {
+                    lobbyEntryState.activity = PlayerActivity.WAITING;
+                }
+            }
             this.state.players.add(lobbyEntryState);
         }
     }

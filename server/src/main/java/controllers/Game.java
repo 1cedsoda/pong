@@ -40,19 +40,23 @@ public class Game {
 
     public boolean addPlayer(PlayerConnection playerConnection) {
         if (this.state.leftRacket == null) {
+            System.out.println("Game " +state.gameId+ " : Adding left player");
             RacketState racketState = new RacketState();
             racketState.score = 0;
             racketState.position = new Point(-1, 0);
             racketState.size = 0.3;
+            racketState.name = playerConnection.name;
             this.state.leftRacket = racketState;
             this.leftRacket = new Racket(this.state.leftRacket);
             this.leftPlayer = playerConnection;
             return true;
         } else if (this.state.rightRacket == null) {
+            System.out.println("Game " +state.gameId+ " : Adding right player");
             RacketState racketState = new RacketState();
             racketState.score = 0;
             racketState.position = new Point(1, 0);
             racketState.size = 0.3;
+            racketState.name = playerConnection.name;
             this.state.rightRacket = racketState;
             this.rightRacket = new Racket(this.state.rightRacket);
             this.rightPlayer = playerConnection;
@@ -68,5 +72,13 @@ public class Game {
         if (this.rightPlayer != null) {
             this.rightPlayer.sendTCP(message);
         }
+    }
+
+    public boolean hasPlayerConnected(PlayerConnection playerConnection) {
+        return this.leftPlayer == playerConnection || this.rightPlayer == playerConnection;
+    }
+
+    public boolean isFull() {
+        return this.leftPlayer != null && this.rightPlayer != null;
     }
 }

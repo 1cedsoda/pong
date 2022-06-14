@@ -4,6 +4,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.*;
 import common.messages.*;
 import controllers.Lobby;
+import views.GamePanel;
 import views.MainFrame;
 
 import java.io.IOException;
@@ -50,6 +51,13 @@ public class GameClient {
 
                 if (object instanceof LobbyStateMessage message) {
                     lobby.onLobbyStateMessage(message, connection);
+                }
+
+                if (object instanceof GameOpenMessage message) {
+                    System.out.println("Game open message received" + message.gameId);
+                    MainFrame.instance.showGamePanel();
+                    MainFrame.instance.gamePanel.setGameId(message.gameId);
+                    MainFrame.instance.gamePanel.refresh();
                 }
             }
 

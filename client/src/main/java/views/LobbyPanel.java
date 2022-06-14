@@ -51,9 +51,7 @@ public class LobbyPanel extends JPanel {
             if (lobbyEntryState.gameId != null && lobbyEntryState.activity == PlayerActivity.WAITING) {
                 JButton joinButton = new JButton("Join");
                 joinButton.addActionListener(e -> {
-                    GameJoinMessage gameJoinMessage = new GameJoinMessage();
-                    gameJoinMessage.gameId = lobbyEntryState.gameId;
-                    GameClient.instance.client.sendTCP(gameJoinMessage);
+                    joinGame(lobbyEntryState.gameId);
                 });
                 playerRow.add(joinButton);
             }
@@ -67,7 +65,7 @@ public class LobbyPanel extends JPanel {
         // Create Game Button
         JButton createGameButton = new JButton("Create Game");
         createGameButton.addActionListener(e -> {
-            GameClient.instance.createGame();
+            joinGame(null);
         });
         bottomRow.add(createGameButton);
 
@@ -83,6 +81,12 @@ public class LobbyPanel extends JPanel {
 
         this.revalidate();
         this.repaint();
+    }
+
+    private void joinGame(String gameId) {
+        GameJoinMessage gameJoinMessage = new GameJoinMessage();
+        gameJoinMessage.gameId = gameId;
+        GameClient.instance.client.sendTCP(gameJoinMessage);
     }
 
     private ImageIcon getPlayerActivityIcon(PlayerActivity activity) {

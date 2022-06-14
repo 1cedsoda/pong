@@ -14,7 +14,7 @@ public class GameServer {
     static int portTcp = 2347;
     static int portUdp = portTcp;
 
-    Lobby lobby;
+    public Lobby lobby;
     public Server server;
 
     public Games games;
@@ -76,6 +76,5 @@ public class GameServer {
         }
 
         server.start();
-
     }
 }
