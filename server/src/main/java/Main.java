@@ -1,8 +1,6 @@
 import controllers.Games;
 import controllers.Lobby;
-import server.GameServer;
-
-import java.io.IOException;
+import networking.GameServer;
 
 public class Main {
     public static void main(String[] args) {

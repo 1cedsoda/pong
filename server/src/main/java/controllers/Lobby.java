@@ -6,8 +6,8 @@ import common.messages.LobbyJoinMessage;
 import common.messages.LobbyStateMessage;
 import common.states.LobbyEntryState;
 import common.states.LobbyState;
-import server.GameServer;
-import server.PlayerConnection;
+import networking.GameServer;
+import networking.PlayerConnection;
 
 import java.util.ArrayList;
 import java.util.List;

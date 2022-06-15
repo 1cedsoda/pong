@@ -14,6 +14,10 @@ public class Vector {
         return new Vector(direction, length);
     }
 
+    public Vector() {
+        // Needed for Kryo serialization
+    }
+
     public double getX() {
         return Math.cos(Math.toRadians(direction)) * length;
     }

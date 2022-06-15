@@ -3,11 +3,13 @@ package controllers;
 import com.esotericsoftware.kryonet.Connection;
 import common.Utils;
 import common.geometry.Point;
+import common.geometry.Vector;
 import common.messages.GameMoveMessage;
+import common.messages.GameStateMessage;
 import common.states.BallState;
 import common.states.GameState;
 import common.states.RacketState;
-import server.PlayerConnection;
+import networking.PlayerConnection;
 
 import java.util.List;
 
@@ -28,21 +30,30 @@ public class Game {
         this.state.gameId = Utils.randomString(10);
         this.state.ball = new BallState();
 
+        this.state.ball.position = new Point(0, 0);
+        this.state.ball.velocity = new Vector(1, 1);
+
         this.ball = new Ball(state.ball);
-    }
 
-    public void onMoveSignal(GameMoveMessage message, Connection connection) {
-
+        reset();
     }
 
     public void onTimerInvocation(double secondsPassed) {
         ball.calculateStep(secondsPassed, ball.state.position, this);
         System.out.println(ball.state.position);
+        sendGameState();
+    }
+
+    // Send game state to clients
+    public void sendGameState() {
+        GameStateMessage gameStateMessage = new GameStateMessage();
+        gameStateMessage.gameState = state;
+        sendToPlayers(gameStateMessage);
     }
 
     public boolean addPlayer(PlayerConnection playerConnection) {
         if (this.state.leftRacket == null) {
-            System.out.println("Game " +state.gameId+ " : Adding left player");
+            System.out.println("Game " + state.gameId + " : Adding left player");
             RacketState racketState = new RacketState();
             racketState.score = 0;
             racketState.position = new Point(-1, 0);
@@ -53,7 +64,7 @@ public class Game {
             this.leftPlayer = playerConnection;
             return true;
         } else if (this.state.rightRacket == null) {
-            System.out.println("Game " +state.gameId+ " : Adding right player");
+            System.out.println("Game " + state.gameId + " : Adding right player");
             RacketState racketState = new RacketState();
             racketState.score = 0;
             racketState.position = new Point(1, 0);
@@ -69,12 +80,12 @@ public class Game {
 
     public void removePlayer(PlayerConnection playerConnection) {
         if (this.rightPlayer == playerConnection) {
-            System.out.println("Game " +state.gameId+ " : Removing right player");
+            System.out.println("Game " + state.gameId + " : Removing right player");
             this.state.rightRacket = null;
             this.rightRacket = null;
             this.rightPlayer = null;
         } else if (this.leftPlayer == playerConnection) {
-            System.out.println("Game " +state.gameId+ " : Removing left player");
+            System.out.println("Game " + state.gameId + " : Removing left player");
             this.state.leftRacket = null;
             this.leftRacket = null;
             this.leftPlayer = null;
@@ -109,5 +120,13 @@ public class Game {
 
     public void start() {
         this.timer.runThread();
+    }
+
+    public void onGameMoveMessage(GameMoveMessage message, PlayerConnection playerConnection) {
+        if (this.leftPlayer == playerConnection) {
+            this.leftRacket.move(message.moveDirection);
+        } else if (this.rightPlayer == playerConnection) {
+            this.rightRacket.move(message.moveDirection);
+        }
     }
 }

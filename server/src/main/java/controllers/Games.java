@@ -1,11 +1,11 @@
 package controllers;
 
-import com.esotericsoftware.kryonet.Connection;
 import common.messages.GameExitMessage;
 import common.messages.GameJoinMessage;
+import common.messages.GameMoveMessage;
 import common.messages.GameOpenMessage;
-import server.GameServer;
-import server.PlayerConnection;
+import networking.GameServer;
+import networking.PlayerConnection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +26,7 @@ public class Games {
         return null;
     }
 
-    public void onGameJoinMessage(GameJoinMessage message, PlayerConnection playerConnection)
-    {
+    public void onGameJoinMessage(GameJoinMessage message, PlayerConnection playerConnection) {
         System.out.println("onGameJoinMessage");
         Game game = getByGameId(message.gameId);
         boolean addPlayerSuccess;
@@ -51,6 +50,12 @@ public class Games {
             gameOpenMessage.gameId = game.state.gameId;
             System.out.println("Sending game open message to client " + gameOpenMessage.gameId);
             playerConnection.sendTCP(gameOpenMessage);
+        }
+
+        // If game is full, start it
+        if (game.isFull()) {
+            System.out.println("Game is full, starting...");
+            game.start();
         }
 
         // Send lobby State
@@ -88,5 +93,12 @@ public class Games {
             }
         }
         return null;
+    }
+
+    public void onGameMoveMessage(GameMoveMessage message, PlayerConnection playerConnection) {
+        Game game = getGameByPlayerConnection(playerConnection);
+        if (game != null) {
+            game.onGameMoveMessage(message, playerConnection);
+        }
     }
 }

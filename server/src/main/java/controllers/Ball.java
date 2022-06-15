@@ -2,6 +2,7 @@ package controllers;
 
 import common.geometry.Point;
 import common.geometry.Line;
+import common.geometry.Vector;
 import common.states.BallState;
 import geometry.Collision;
 
@@ -11,10 +12,6 @@ public class Ball {
 
     public Ball(BallState state) {
         this.state = state;
-    }
-
-    public Ball() {
-        this.state = new BallState();
     }
 
     public void calculateStep(double seconds, Point fromPosition, Game game){

@@ -4,6 +4,8 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 import common.enums.MoveDirection;
 import common.enums.PlayerActivity;
+import common.geometry.Point;
+import common.geometry.Vector;
 import common.states.*;
 
 import java.util.ArrayList;
@@ -32,6 +34,10 @@ public class Network {
         // Enums
         kryo.register(PlayerActivity.class);
         kryo.register(MoveDirection.class);
+
+        // Geometry
+        kryo.register(Point.class);
+        kryo.register(Vector.class);
 
         // Other
         kryo.register(ArrayList.class);

@@ -1,4 +1,4 @@
-package server;
+package networking;
 
 import com.esotericsoftware.kryonet.Connection;
 

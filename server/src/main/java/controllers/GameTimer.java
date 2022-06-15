@@ -1,7 +1,5 @@
 package controllers;
 
-import controllers.Game;
-
 import java.util.Date;
 
 public class GameTimer implements Runnable {
@@ -20,21 +18,21 @@ public class GameTimer implements Runnable {
         while (true) {
             // 30 times a second create event
 
-                try {
-                    Thread.sleep(500);
-                    if (startTime == 0) {
-                        startTime = new Date().getTime();
-                        lastTime = startTime;
-                    } else {
-                        long now = new Date().getTime();
-                        double timePassed = now - lastTime;
-                        lastTime = now;
-                        game.onTimerInvocation(timePassed/1000);
-                    }
-
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+            try {
+                Thread.sleep(1000 / 30);
+                if (startTime == 0) {
+                    startTime = new Date().getTime();
+                    lastTime = startTime;
+                } else {
+                    long now = new Date().getTime();
+                    double timePassed = now - lastTime;
+                    lastTime = now;
+                    game.onTimerInvocation(timePassed / 1000);
                 }
+
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 
         }
     }
