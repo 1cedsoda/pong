@@ -1,10 +1,10 @@
 package views;
 
-import client.GameClient;
 import common.enums.PlayerActivity;
 import common.messages.GameJoinMessage;
 import common.states.LobbyEntryState;
 import controllers.Lobby;
+import networking.GameClient;
 import utils.ImageCreate;
 
 import javax.swing.*;
@@ -19,7 +19,6 @@ public class LobbyPanel extends JPanel {
     }
 
     public void refresh() {
-        System.out.println("Refreshing lobbyPanel");
         removeAll();
         this.setLayout(new BorderLayout());
 

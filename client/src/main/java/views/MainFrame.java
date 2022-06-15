@@ -1,6 +1,6 @@
 package views;
 
-import client.GameClient;
+import networking.GameClient;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,7 +39,7 @@ public class MainFrame extends JFrame {
         instance = this;
     }
 
-    private  void showPanel(String panelName) {
+    private void showPanel(String panelName) {
         CardLayout cl = (CardLayout) (cards.getLayout());
         cl.show(cards, panelName);
     }
@@ -56,6 +56,6 @@ public class MainFrame extends JFrame {
 
     public void showGamePanel() {
         showPanel("game");
-        setSize(300, 300);
+        setSize(GameCanvas.width, GameCanvas.height + 60);
     }
 }

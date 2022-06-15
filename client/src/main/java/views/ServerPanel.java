@@ -1,6 +1,6 @@
 package views;
 
-import client.GameClient;
+import networking.GameClient;
 
 import javax.swing.*;
 import java.io.IOException;

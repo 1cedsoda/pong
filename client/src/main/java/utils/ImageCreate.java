@@ -12,24 +12,26 @@ public class ImageCreate {
 
     public static String getOperatingSystem() {
         String os = System.getProperty("os.name");
-        // System.out.println("Using System Property: " + os);
         return os;
     }
-    public static String getPath (String fileName) {
+
+    public static String getPath(String fileName) {
         String filePath;
         String os = getOperatingSystem();
-        if(os.contains("Windows")) {
-            filePath = new File("").getAbsolutePath() + "\\..\\client\\src\\main\\resources\\"+fileName;
+        if (os.contains("Windows")) {
+            filePath = new File("").getAbsolutePath() + "\\..\\client\\src\\main\\resources\\" + fileName;
             return filePath;
         } else {
-            filePath = new File("").getAbsolutePath() + "/client/src/main/resources/" +fileName;
+            filePath = new File("").getAbsolutePath() + "/client/src/main/resources/" + fileName;
             return filePath;
         }
     }
-   // Folgende Funktion kopieren und "exit" ändern um ein neues Image hinzuzufügen
-    public static BufferedImage player_idle= readBufferedImage(getPath("player_idle.png"));
-    public static BufferedImage player_playing= readBufferedImage(getPath("player_playing.png"));
-    public static BufferedImage player_waiting= readBufferedImage(getPath("player_waiting.png"));
+
+    // Folgende Funktion kopieren und "exit" ändern um ein neues Image hinzuzufügen
+    public static BufferedImage player_idle = readBufferedImage(getPath("player_idle.png"));
+    public static BufferedImage player_playing = readBufferedImage(getPath("player_playing.png"));
+    public static BufferedImage player_waiting = readBufferedImage(getPath("player_waiting.png"));
+
     public static BufferedImage readBufferedImage(String fileName) {
         File f = new File(fileName);
         try {
@@ -39,12 +41,12 @@ public class ImageCreate {
         }
     }
 
-    public static ImageIcon scaleImages(int w, int h, ImageIcon image){
+    public static ImageIcon scaleImages(int w, int h, ImageIcon image) {
         int x = w;
         int y = h;
-        BufferedImage resizing = new BufferedImage(w, h ,BufferedImage.TYPE_INT_RGB);
+        BufferedImage resizing = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         Graphics2D gr2d = resizing.createGraphics();
-        gr2d.drawImage(image.getImage(), 0, 0, x, y,null);
+        gr2d.drawImage(image.getImage(), 0, 0, x, y, null);
         gr2d.dispose();
         return new ImageIcon(resizing);
     }
