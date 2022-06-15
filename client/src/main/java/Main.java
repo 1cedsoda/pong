@@ -1,5 +1,4 @@
-import client.GameClient;
-import com.esotericsoftware.kryonet.*;
+import networking.GameClient;
 import views.MainFrame;
 
 public class Main {

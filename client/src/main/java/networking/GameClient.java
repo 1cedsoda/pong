@@ -1,14 +1,15 @@
-package client;
+package networking;
 
 import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryonet.*;
+import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.FrameworkMessage;
+import com.esotericsoftware.kryonet.Listener;
 import common.messages.*;
 import controllers.Lobby;
-import views.GamePanel;
 import views.MainFrame;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -34,20 +35,20 @@ public class GameClient {
         GameClient gameClient = this;
 
         client.addListener(new Listener() {
-            public void connected (Connection connection) {
+            public void connected(Connection connection) {
                 System.out.println("Connected!");
                 LobbyJoinMessage lobbyJoinMessage = new LobbyJoinMessage();
                 lobbyJoinMessage.name = name;
                 client.sendTCP(lobbyJoinMessage);
             }
 
-            public void received (Connection connection, Object object) {
+            public void received(Connection connection, Object object) {
                 if (object instanceof FrameworkMessage.KeepAlive message) {
                     client.sendTCP(message);
                     return;
                 }
 
-                System.out.println("-> " + object);
+                System.out.println(client.getRemoteAddressTCP() + " -> " + object);
 
                 if (object instanceof LobbyStateMessage message) {
                     lobby.onLobbyStateMessage(message, connection);
@@ -59,9 +60,17 @@ public class GameClient {
                     MainFrame.instance.gamePanel.setGameId(message.gameId);
                     MainFrame.instance.gamePanel.refresh();
                 }
+
+                if (object instanceof GameStateMessage message) {
+                    // check game id
+                    if (MainFrame.instance.gamePanel.game.gameId.equals(message.gameState.gameId)) {
+                        MainFrame.instance.gamePanel.game.updateState(message.gameState);
+                        MainFrame.instance.gamePanel.refresh();
+                    }
+                }
             }
 
-            public void disconnected (Connection connection) {
+            public void disconnected(Connection connection) {
             }
         });
 
@@ -73,7 +82,7 @@ public class GameClient {
         this.client.start();
 
         new Thread("Connect") {
-            public void run () {
+            public void run() {
                 try {
                     int udp = tcp;
                     client.connect(5000, domain, tcp, udp);

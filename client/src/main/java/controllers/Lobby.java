@@ -1,16 +1,12 @@
 package controllers;
 
-import client.GameClient;
 import com.esotericsoftware.kryonet.Connection;
-import common.messages.LobbyJoinMessage;
 import common.messages.LobbyStateMessage;
 import common.states.LobbyEntryState;
 import common.states.LobbyState;
-import views.LobbyPanel;
 import views.MainFrame;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Lobby {
 

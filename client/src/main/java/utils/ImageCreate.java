@@ -22,13 +22,11 @@ public class ImageCreate {
             filePath = new File("").getAbsolutePath() + "\\..\\client\\src\\main\\resources\\"+fileName;
             return filePath;
         } else {
-            filePath = new File("").getAbsolutePath() + "/client/src/main/resources/"+fileName;
+            filePath = new File("").getAbsolutePath() + "/client/src/main/resources/" +fileName;
             return filePath;
         }
     }
    // Folgende Funktion kopieren und "exit" ändern um ein neues Image hinzuzufügen
-    public static BufferedImage exit= readBufferedImage(getPath("f.png"));
-    public static BufferedImage gameBackground= readBufferedImage(getPath("Game_Background.png"));
     public static BufferedImage player_idle= readBufferedImage(getPath("player_idle.png"));
     public static BufferedImage player_playing= readBufferedImage(getPath("player_playing.png"));
     public static BufferedImage player_waiting= readBufferedImage(getPath("player_waiting.png"));
@@ -40,19 +38,6 @@ public class ImageCreate {
             throw new RuntimeException(e);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public static ImageIcon scaleImages(int w, int h, ImageIcon image){
         int x = w;
