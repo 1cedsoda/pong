@@ -27,7 +27,7 @@ public class GameCanvas extends JPanel {
         if (game != null) {
             this.state = game.state;
         }
-        setBackground(Color.YELLOW);
+        setBackground(Color.BLACK);
         setPreferredSize(new Dimension(width, height));
     }
 
@@ -39,7 +39,6 @@ public class GameCanvas extends JPanel {
         // draw arena
         drawBallArena(g2d);
 
-        g2d.setColor(Color.red);
 
         // draw rackets
         drawRacket(g2d, state.leftRacket);
@@ -54,17 +53,17 @@ public class GameCanvas extends JPanel {
         int y = arenaOffsetTop + gameYToArenaY(1);
 
         // draw area
-        g2d.setColor(Color.white);
-        g2d.fillRect(x, y, ballAreaWidth, ballAreaHeight);
+        //g2d.setColor(Color.black);
+        //g2d.fillRect(x, y, ballAreaWidth, ballAreaHeight);
 
         // top border
         int borderTopY = arenaOffsetTop + gameYToArenaY(1) - borderStrength - ballRadius;
-        g2d.setColor(Color.black);
+        g2d.setColor(Color.white);
         g2d.fillRect(x, borderTopY, ballAreaWidth, borderStrength);
 
         // bottom border
         int borderBottomY = arenaOffsetTop + gameYToArenaY(-1) + ballRadius;
-        g2d.setColor(Color.black);
+        g2d.setColor(Color.white);
         g2d.fillRect(x, borderBottomY, ballAreaWidth, borderStrength);
 
     }
@@ -76,6 +75,7 @@ public class GameCanvas extends JPanel {
         int x = (int) (arenaOffsetLeft + gameXToArenaX(racketState.position.x) - (racketWidth / 2) + ((racketWidth / 2) * racketState.position.x) + (ballRadius * racketState.position.x));
         int racketHeight = (int) (racketState.size * ballAreaHeight * 0.5);
         int y = arenaOffsetTop + gameYToArenaY(racketState.position.y) - racketHeight / 2;
+        g2d.setColor(Color.white);
         g2d.fillRect(x, y, racketWidth, racketHeight);
     }
 
