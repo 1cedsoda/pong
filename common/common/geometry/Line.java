@@ -17,7 +17,8 @@ public class Line implements Serializable {
 
     public boolean pointIsOnLine(Point p) {
         double distanceSum = p.getDistance(end) + p.getDistance(start);
-        return distanceSum == getDistance();
+        double distanceRatio = distanceSum / getDistance();
+        return distanceRatio < 1.001 && distanceRatio > 0.999;
     }
 
     // get vector pointing away 90 degrees from line
