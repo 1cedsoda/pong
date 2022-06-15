@@ -3,6 +3,7 @@ package geometry;
 import common.geometry.Line;
 import common.geometry.Point;
 import common.geometry.Vector;
+import controllers.Game;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -43,24 +44,21 @@ public class Collision implements Serializable {
         // Line AB represented as a1x + b1y = c1
         double a1 = B.y - A.y;
         double b1 = A.x - B.x;
-        double c1 = a1*(A.x) + b1*(A.y);
+        double c1 = a1 * (A.x) + b1 * (A.y);
 
         // Line CD represented as a2x + b2y = c2
         double a2 = D.y - C.y;
         double b2 = C.x - D.x;
-        double c2 = a2*(C.x)+ b2*(C.y);
+        double c2 = a2 * (C.x) + b2 * (C.y);
 
-        double determinant = a1*b2 - a2*b1;
+        double determinant = a1 * b2 - a2 * b1;
 
-        if (determinant == 0)
-        {
+        if (determinant == 0) {
             // The lines are parallel.
             return null;
-        }
-        else
-        {
-            double x = (b2*c1 - b1*c2)/determinant;
-            double y = (a1*c2 - a2*c1)/determinant;
+        } else {
+            double x = (b2 * c1 - b1 * c2) / determinant;
+            double y = (a1 * c2 - a2 * c1) / determinant;
             Point i = new Point(x, y);
             if (secondaryLine.pointIsOnLine(i) && primaryLine.pointIsOnLine(i)) {
                 Vector primaryVector = primaryLine.getVector();
@@ -72,7 +70,7 @@ public class Collision implements Serializable {
         }
     }
 
-    public static Collision withWalls(Line primarayLine) {
+    public static Collision withWalls(Line primarayLine, Game game) {
         // Bound shortcut
         if (primarayLine.end.inGameArea()) {
             return null;
@@ -81,7 +79,7 @@ public class Collision implements Serializable {
         for (Line wall : walls) {
             Collision collision = Collision.withLine(primarayLine, wall);
             if (collision != null) {
-                System.out.println("Collision with wall " + wall + " (Line:"+primarayLine+")");
+                game.log("Collision with wall at " + collision.point);
                 return collision;
             }
         }

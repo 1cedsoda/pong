@@ -36,26 +36,27 @@ public class GameClient {
 
         client.addListener(new Listener() {
             public void connected(Connection connection) {
-                System.out.println("Connected!");
+                log("Connected!");
                 LobbyJoinMessage lobbyJoinMessage = new LobbyJoinMessage();
                 lobbyJoinMessage.name = name;
                 client.sendTCP(lobbyJoinMessage);
             }
 
             public void received(Connection connection, Object object) {
+
                 if (object instanceof FrameworkMessage.KeepAlive message) {
                     client.sendTCP(message);
                     return;
                 }
 
-                System.out.println(client.getRemoteAddressTCP() + " -> " + object);
+                log("-> " + object);
 
                 if (object instanceof LobbyStateMessage message) {
-                    lobby.onLobbyStateMessage(message, connection);
+                    lobby.onLobbyStateMessage(message, connection, gameClient);
                 }
 
                 if (object instanceof GameOpenMessage message) {
-                    System.out.println("Game open message received" + message.gameId);
+                    log("Opening game: " + message.gameId);
                     MainFrame.instance.showGamePanel();
                     MainFrame.instance.gamePanel.setGameId(message.gameId);
                     MainFrame.instance.gamePanel.refresh();
@@ -70,11 +71,16 @@ public class GameClient {
                 }
             }
 
-            public void disconnected(Connection connection) {
+            public void disconnected(Connection serverConnection) {
             }
         });
 
         instance = this;
+    }
+
+    public void log(String s) {
+        String ip = client.getRemoteAddressTCP().getHostString();
+        System.out.println("[" + ip + "] " + s);
     }
 
     public void connect(String domain, int tcp) throws IOException {

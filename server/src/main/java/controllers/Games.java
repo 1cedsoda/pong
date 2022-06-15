@@ -27,34 +27,31 @@ public class Games {
     }
 
     public void onGameJoinMessage(GameJoinMessage message, PlayerConnection playerConnection) {
-        System.out.println("onGameJoinMessage");
         Game game = getByGameId(message.gameId);
         boolean addPlayerSuccess;
 
         if (game == null) {
-            System.out.println("Game not found, creating...");
             // Create new Game
             game = new Game();
             game.addPlayer(playerConnection);
             addPlayerSuccess = games.add(game);
+            playerConnection.log("Creating game " + game.state.gameId);
         } else {
-            System.out.println("Game found, joining...");
+            playerConnection.log("Joining game " + game.state.gameId);
             // Add player to game
             addPlayerSuccess = game.addPlayer(playerConnection);
         }
 
         // Open Game on client
         if (addPlayerSuccess) {
-            System.out.println("Player joined game " + game.state.gameId);
             GameOpenMessage gameOpenMessage = new GameOpenMessage();
             gameOpenMessage.gameId = game.state.gameId;
-            System.out.println("Sending game open message to client " + gameOpenMessage.gameId);
             playerConnection.sendTCP(gameOpenMessage);
+            playerConnection.log("Opening game " + game.state.gameId + " on client");
         }
 
         // If game is full, start it
         if (game.isFull()) {
-            System.out.println("Game is full, starting...");
             game.start();
         }
 
@@ -63,7 +60,7 @@ public class Games {
     }
 
     public void onGameExitMessage(GameExitMessage message, PlayerConnection playerConnection) {
-        System.out.println("onGameExitMessage");
+        playerConnection.log("Exiting game " + message.gameId);
         Game game = getByGameId(message.gameId);
         if (game != null) {
             game.removePlayer(playerConnection);

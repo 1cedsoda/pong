@@ -25,7 +25,7 @@ public class GameServer {
         games = new Games();
         lobby = new Lobby();
 
-        System.out.println("Server started");
+        log("Started!");
 
         instance = this;
 
@@ -47,7 +47,7 @@ public class GameServer {
                     return;
                 }
 
-                System.out.println(playerConnection.getRemoteAddressTCP() + " -> " + object);
+                playerConnection.log("-> " + object);
 
                 if (object instanceof LobbyJoinMessage message) {
                     lobby.onLobbyJoinMessage(message, playerConnection);
@@ -67,12 +67,14 @@ public class GameServer {
             }
 
             public void connected(Connection connection) {
-                connection.setKeepAliveTCP(500);
-                System.out.println("New connection");
+                PlayerConnection playerConnection = (PlayerConnection) connection;
+                playerConnection.setKeepAliveTCP(500);
+                playerConnection.log("Connected!");
             }
 
             public void disconnected(Connection connection) {
-                System.out.println("Connection closed. " + server.getConnections().length + " connections remaining.");
+                PlayerConnection playerConnection = (PlayerConnection) connection;
+                playerConnection.log("Disconnected!");
                 instance.lobby.sendLobbyState();
             }
         });
@@ -84,5 +86,9 @@ public class GameServer {
         }
 
         server.start();
+    }
+
+    public void log(String log) {
+        System.out.println("[Server] " + log);
     }
 }

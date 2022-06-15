@@ -4,6 +4,7 @@ import com.esotericsoftware.kryonet.Connection;
 import common.messages.LobbyStateMessage;
 import common.states.LobbyEntryState;
 import common.states.LobbyState;
+import networking.GameClient;
 import views.MainFrame;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 public class Lobby {
 
     public LobbyState state;
+
     public Lobby(LobbyState state) {
         this.state = state;
     }
@@ -20,11 +22,11 @@ public class Lobby {
         this.state.players = new ArrayList<LobbyEntryState>();
     }
 
-    public void onLobbyStateMessage(LobbyStateMessage message, Connection connection) {
+    public void onLobbyStateMessage(LobbyStateMessage message, Connection connection, GameClient client) {
         this.state = message.lobby;
-        System.out.println("Lobby state updated");
+        client.log("Lobby state updated!");
         for (LobbyEntryState lobbyEntryState : this.state.players) {
-            System.out.println("  Player: "+lobbyEntryState.name);
+            client.log("  - " + lobbyEntryState.name);
         }
         MainFrame.instance.lobbyPanel.refresh();
     }

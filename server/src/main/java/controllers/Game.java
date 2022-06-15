@@ -40,7 +40,6 @@ public class Game {
 
     public void onTimerInvocation(double secondsPassed) {
         ball.calculateStep(secondsPassed, ball.state.position, this);
-        System.out.println(ball.state.position);
         sendGameState();
     }
 
@@ -53,7 +52,7 @@ public class Game {
 
     public boolean addPlayer(PlayerConnection playerConnection) {
         if (this.state.leftRacket == null) {
-            System.out.println("Game " + state.gameId + " : Adding left player");
+            log("Adding left player " + playerConnection.name);
             RacketState racketState = new RacketState();
             racketState.score = 0;
             racketState.position = new Point(-1, 0);
@@ -64,7 +63,7 @@ public class Game {
             this.leftPlayer = playerConnection;
             return true;
         } else if (this.state.rightRacket == null) {
-            System.out.println("Game " + state.gameId + " : Adding right player");
+            log("Adding right player " + playerConnection.name);
             RacketState racketState = new RacketState();
             racketState.score = 0;
             racketState.position = new Point(1, 0);
@@ -80,12 +79,12 @@ public class Game {
 
     public void removePlayer(PlayerConnection playerConnection) {
         if (this.rightPlayer == playerConnection) {
-            System.out.println("Game " + state.gameId + " : Removing right player");
+            log("Removing right player" + playerConnection.name);
             this.state.rightRacket = null;
             this.rightRacket = null;
             this.rightPlayer = null;
         } else if (this.leftPlayer == playerConnection) {
-            System.out.println("Game " + state.gameId + " : Removing left player");
+            log("Removing left player" + playerConnection.name);
             this.state.leftRacket = null;
             this.leftRacket = null;
             this.leftPlayer = null;
@@ -115,10 +114,12 @@ public class Game {
     }
 
     public void reset() {
+        log("Resetting game");
         this.timer = new GameTimer(this);
     }
 
     public void start() {
+        log("Starting game");
         this.timer.runThread();
     }
 
@@ -128,5 +129,9 @@ public class Game {
         } else if (this.rightPlayer == playerConnection) {
             this.rightRacket.move(message.moveDirection);
         }
+    }
+
+    public void log(String log) {
+        System.out.println("[" + state.gameId + "] " + log);
     }
 }

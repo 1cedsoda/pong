@@ -18,12 +18,12 @@ public class Game {
     }
 
     public void exitGame() {
-        System.out.println("Exiting game: " + gameId);
         GameExitMessage message = new GameExitMessage();
         message.gameId = gameId;
         GameClient.instance.client.sendTCP(message);
 
         MainFrame.instance.showLobbyPanel();
+        log("Exited!");
     }
 
     public void updateState(GameState gameState) {
@@ -33,8 +33,13 @@ public class Game {
     }
 
     public void move(MoveDirection direction) {
+        log("Move: " + direction);
         GameMoveMessage gameMoveMessage = new GameMoveMessage();
         gameMoveMessage.moveDirection = direction;
         GameClient.instance.client.sendTCP(gameMoveMessage);
+    }
+
+    public void log(String log) {
+        System.out.println("[" + state.gameId + "] " + log);
     }
 }
