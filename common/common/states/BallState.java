@@ -5,6 +5,6 @@ import common.geometry.Vector;
 
 public class BallState {
     public Point position;
-    // percent per second -> Velocity
+    // percent per second -> yVelocity
     public Vector velocity;
 }

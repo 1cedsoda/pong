@@ -31,7 +31,7 @@ public class Game {
         this.state.ball = new BallState();
 
         this.state.ball.position = new Point(0, 0);
-        this.state.ball.velocity = new Vector(1, 1);
+        this.state.ball.velocity = new Vector(0, 1.5);
 
         this.ball = new Ball(state.ball);
 
@@ -56,7 +56,7 @@ public class Game {
             RacketState racketState = new RacketState();
             racketState.score = 0;
             racketState.position = new Point(-1, 0);
-            racketState.size = 0.3;
+            racketState.size = 0.5;
             racketState.name = playerConnection.name;
             this.state.leftRacket = racketState;
             this.leftRacket = new Racket(this.state.leftRacket);
@@ -67,7 +67,7 @@ public class Game {
             RacketState racketState = new RacketState();
             racketState.score = 0;
             racketState.position = new Point(1, 0);
-            racketState.size = 0.3;
+            racketState.size = 0.5;
             racketState.name = playerConnection.name;
             this.state.rightRacket = racketState;
             this.rightRacket = new Racket(this.state.rightRacket);

@@ -29,20 +29,26 @@ public class Ball {
                 // Left player lost
                 game.rightRacket.incrementScore();
                 game.ball.state.position.setXY(0, 0);
-                game.ball.state.velocity.direction = 330;
+                game.ball.state.velocity.direction = 0;
                 game.log("Left player lost");
                 return;
             } else if (Collision.walls.get(1).pointIsOnLine(collision.point) && !game.rightRacket.getLine().pointIsOnLine(collision.point)) {
                 // Right player lost
                 game.leftRacket.incrementScore();
                 game.ball.state.position.setXY(0, 0);
-                game.ball.state.velocity.direction = 30;
+                game.ball.state.velocity.direction = 180;
                 game.log("Right player lost");
                 return;
             }
 
             // reflect
             state.velocity.direction = collision.reflectionAngle; // update ball velocity vector
+            // randomize reflection angle by 1-10 degrees but not into area 260-280 and 80-100
+            do {
+                state.velocity.direction += (Math.random() * 60) - 30;
+                state.velocity.direction = state.velocity.direction % 360;
+            } while ((state.velocity.direction > 80 && state.velocity.direction < 100) || (state.velocity.direction > 260 && state.velocity.direction < 280));
+
             double distanceRemaining = movement.getDistance() - collision.distance;
             double remainingSeconds = distanceRemaining / state.velocity.length;
 

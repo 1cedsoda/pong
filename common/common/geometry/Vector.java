@@ -3,6 +3,7 @@ package common.geometry;
 public class Vector {
     public double direction;
     public double length;
+
     public Vector(double direction, double length) {
         this.direction = direction;
         this.length = length;
@@ -27,19 +28,18 @@ public class Vector {
     }
 
     public void setX(double x) {
-        double direction = Math.toDegrees(Math.atan2(getY(), x));
-        double length = Math.sqrt(x * x + getY() * getY());
+        direction = Math.toDegrees(Math.atan2(getY(), x));
+        length = Math.sqrt(x * x + getY() * getY());
     }
 
-    public void setY() {
-        double direction = Math.toDegrees(Math.atan2(getY(), getX()));
-        double length = Math.sqrt(getX() * getX() + getY() * getY());
+    public void setY(double y) {
+        direction = Math.toDegrees(Math.atan2(getY(), getX()));
+        length = Math.sqrt(getX() * getX() + y * y);
     }
 
     // Function that return
     // dot product of two vector array.
-    static double dot(Vector a, Vector b)
-    {
+    static double dot(Vector a, Vector b) {
         double product = 0;
         product += product + a.getX() * b.getY();
         product += product + a.getY() * b.getX();
