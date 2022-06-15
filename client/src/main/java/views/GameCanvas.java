@@ -74,9 +74,9 @@ public class GameCanvas extends JPanel {
             return;
         }
         int x = (int) (arenaOffsetLeft + gameXToArenaX(racketState.position.x) - (racketWidth / 2) + ((racketWidth / 2) * racketState.position.x) + (ballRadius * racketState.position.x));
-        int height = (int) (racketState.size * ballAreaHeight);
-        int y = arenaOffsetTop + gameYToArenaY(racketState.position.y) - height / 2;
-        g2d.fillRect(x, y, racketWidth, height);
+        int racketHeight = (int) (racketState.size * ballAreaHeight * 0.5);
+        int y = arenaOffsetTop + gameYToArenaY(racketState.position.y) - racketHeight / 2;
+        g2d.fillRect(x, y, racketWidth, racketHeight);
     }
 
     private void drawBall(Graphics2D g2d, BallState ballState) {
