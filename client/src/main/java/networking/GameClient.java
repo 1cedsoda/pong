@@ -10,8 +10,6 @@ import controllers.Lobby;
 import views.MainFrame;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class GameClient {
 
@@ -83,8 +81,8 @@ public class GameClient {
         System.out.println("[" + ip + "] " + s);
     }
 
-    public void connect(String domain, int tcp) throws IOException {
-        this.name = getUsername();
+    public void connect(String domain, int tcp, String username) throws IOException {
+        this.name = username;
         this.client.start();
 
         new Thread("Connect") {
@@ -112,13 +110,5 @@ public class GameClient {
 
         // Show GamePanel
         mainFrame.showGamePanel();
-    }
-
-    private String getUsername() {
-        return Arrays.stream(System
-                        .getProperty("user.name")
-                        .split("\\s+"))
-                .map(t -> t.substring(0, 1).toUpperCase() + t.substring(1))
-                .collect(Collectors.joining(" "));
     }
 }

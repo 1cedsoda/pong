@@ -8,8 +8,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class ImageCreate {
-
-
     public static String getOperatingSystem() {
         String os = System.getProperty("os.name");
         return os;

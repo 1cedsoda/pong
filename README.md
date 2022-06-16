@@ -9,30 +9,32 @@ Um das spiel zu starten, öffne das Projekt in IntelliJ und starte das Programm 
 ## 2. Server beitreten
 Gebe den hostname eines Servers ein und drücke `Join`.
 Der Port ist standardmäßig der Port `2347`.
+Auch den Spielernamen kannst du spezifizieren. Dieser wird persistent in der `.winfpong` Datei in deinem Nutzerordner gespeichert und wieder geladen wenn du das Spiel neu startest.
 ## 3. Spiel starten
 Drücke `Create Game` und warte bis ein anderer Spieler beitritt oder klicke `Join` neben einem Spielernamen.
 
 # Server Starten
-## Via IntelliJ
+Alternativ kann auch der offizielle WinfPong Server `winfpong.ddns.net` genutzt werden
+## Mit IntelliJ
 Wähle die Run Configuration `Server`aus und starte das Programm.
 
-## Via Terminal
+## Mit Terminal
 ```shell
 java -jar ./bin/winfpong-server.jar
 ```
 
-## Via Docker
+## Mit Docker
 Ein Docker image kann mit folgenden Befehlen erstellt werden:
 ```shell
 docker build  . --tag winfpong-server
 ```
 Das Docker Image kann mit folgenden Befehlen gestartet werden:
 ```shell
-docker run -p 2347:2347 -d winfpong-server
+docker run -p 2347:2347 -p 2347:2347/udp -d winfpong-server
 ```
 
 # Bekannte Fehler
-## Ball  wird in unnatürliche Richtung reflektiert
+## Ball wird in unnatürliche Richtung reflektiert
 Die Reflexionswinkel werden physikalisch berechnet und enthält eine Zufallskomponente.
 Die Zufallskomponente führt bei steilen Kollisionen teilweise zu einer unnatürlichen Reflexionsrichtung.
 

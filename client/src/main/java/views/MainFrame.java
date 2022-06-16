@@ -16,7 +16,7 @@ public class MainFrame extends JFrame {
     public static MainFrame instance;
 
     public MainFrame(GameClient client) {
-        setTitle("PONG");
+        setTitle("WinfPong");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
