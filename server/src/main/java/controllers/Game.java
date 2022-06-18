@@ -39,7 +39,11 @@ public class Game {
     }
 
     public void onTimerInvocation(double secondsPassed) {
-        ball.calculateStep(secondsPassed, ball.state.position, this);
+        System.out.println(String.valueOf(secondsPassed) + " " + String.valueOf(ball.state.roundSeconds));
+        ball.state.roundSeconds += secondsPassed;
+        if (ball.state.roundSeconds >= 3.0) {
+            ball.calculateStep(secondsPassed, ball.state.position, this);
+        }
         sendGameState();
     }
 

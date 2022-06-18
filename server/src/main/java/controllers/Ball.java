@@ -14,11 +14,6 @@ public class Ball {
     }
 
     public void calculateStep(double seconds, Point fromPosition, Game game) {
-        if (state.roundSeconds <= 3.0) {
-            state.roundSeconds += seconds;
-            return;
-        }
-
         // calculate new x and y position with current ball.x and ball.xv
         Line movement = fromPosition.addVector(state.velocity.multiply(seconds));
 
@@ -33,7 +28,7 @@ public class Ball {
             if (Collision.walls.get(0).pointIsOnLine(collision.point) && !game.leftRacket.getLine().pointIsOnLine(collision.point)) {
                 // Left player lost
                 game.rightRacket.incrementScore();
-                game.ball.state.position.setXY(0, 0);
+                game.ball.state.position.setXY(-0.5, 0);
                 game.ball.state.velocity.direction = 0;
                 game.ball.state.roundSeconds = 0;
                 game.log("Left player lost");
@@ -41,7 +36,7 @@ public class Ball {
             } else if (Collision.walls.get(1).pointIsOnLine(collision.point) && !game.rightRacket.getLine().pointIsOnLine(collision.point)) {
                 // Right player lost
                 game.leftRacket.incrementScore();
-                game.ball.state.position.setXY(0, 0);
+                game.ball.state.position.setXY(0.5, 0);
                 game.ball.state.velocity.direction = 180;
                 game.ball.state.roundSeconds = 0;
                 game.log("Right player lost");

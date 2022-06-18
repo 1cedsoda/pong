@@ -72,10 +72,10 @@ public class GamePanel extends JPanel {
         vs.setForeground(Color.WHITE);
         titleRow.add(vs);
         if (game != null && game.state != null && game.state.rightRacket != null) {
-            JLabel score2 = new JLabel(String.valueOf(game.state.leftRacket.score));
+            JLabel score2 = new JLabel(String.valueOf(game.state.rightRacket.score));
             score2.setForeground(Color.WHITE);
             titleRow.add(score2);
-            JLabel name2 = new JLabel("          " + game.state.leftRacket.name);
+            JLabel name2 = new JLabel("          " + game.state.rightRacket.name);
             name2.setForeground(Color.WHITE);
             titleRow.add(name2);
 
