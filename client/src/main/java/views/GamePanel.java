@@ -56,6 +56,32 @@ public class GamePanel extends JPanel {
         removeAll();
         this.setLayout(new BorderLayout());
 
+        // title row
+        JPanel titleRow = new JPanel();
+        titleRow.setBackground(Color.BLACK);
+        titleRow.setLayout(new FlowLayout());
+        if (game != null && game.state != null && game.state.leftRacket != null) {
+            JLabel name1 = new JLabel(game.state.leftRacket.name + "          ");
+            name1.setForeground(Color.WHITE);
+            titleRow.add(name1);
+            JLabel score1 = new JLabel(String.valueOf(game.state.leftRacket.score));
+            score1.setForeground(Color.WHITE);
+            titleRow.add(score1);
+        }
+        JLabel vs = new JLabel(" VS ");
+        vs.setForeground(Color.WHITE);
+        titleRow.add(vs);
+        if (game != null && game.state != null && game.state.rightRacket != null) {
+            JLabel score2 = new JLabel(String.valueOf(game.state.leftRacket.score));
+            score2.setForeground(Color.WHITE);
+            titleRow.add(score2);
+            JLabel name2 = new JLabel("          " + game.state.leftRacket.name);
+            name2.setForeground(Color.WHITE);
+            titleRow.add(name2);
+
+        }
+        this.add(titleRow, BorderLayout.NORTH);
+
         // Show game canvas
         GameCanvas canvas = new GameCanvas(game);
         this.add(canvas, BorderLayout.CENTER);

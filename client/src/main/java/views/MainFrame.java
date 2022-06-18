@@ -45,17 +45,17 @@ public class MainFrame extends JFrame {
     }
 
     public void showServerPanel() {
+        setSize(400, 400);
         showPanel("server");
-        setSize(300, 200);
     }
 
     public void showLobbyPanel() {
+        setSize(400, 400);
         showPanel("lobby");
-        setSize(300, 200);
     }
 
     public void showGamePanel() {
-        showPanel("game");
         setSize(GameCanvas.width, GameCanvas.height + 60);
+        showPanel("game");
     }
 }
