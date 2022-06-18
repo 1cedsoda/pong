@@ -23,7 +23,6 @@ Auch deinen Spielernamen kannst du spezifizieren. Dieser wird persistent in der 
 Drücke `Create Game` und warte bis ein anderer Spieler beitritt oder klicke `Join` neben einem Spielernamen um einem Spiel beizutreten.
 
 # Server Starten
-Alternativ kann auch der offizielle WinfPong Server `winfpong.ddns.net` genutzt werden
 
 ## Variante 1: JAR
 Gehe in den Ordner `bin` und doppelklicke die Datei `winfpong-server.jar`.
@@ -45,7 +44,12 @@ Das Docker Image kann mit folgendem Befehl gestartet werden:
 ```shell
 docker run -p 2347:2347 -p 2347:2347/udp -d winfpong-server
 ```
-Der offizielle WinfPong Server `winfpong.ddns.net` wird in Docker betrieben.
+
+# winfpong.ddns.net
+Dies ist eine öffentliche Server Instanz die im Client voreingestellt ist.
+Leider hat dieser Server einen Fehler wodurch das Spielfeld auf dem Client nicht aktualisiert wird.
+Der Server schickt aus unerklärlichen Gründen und trotz gleicher Codebase zu einem lokalen Server immer die SpieleID `0?x`.
+Um das Spiel zu testen muss leider ein lokaler Server gestartet werden.
 
 # Bekannte Fehler
 ## Schläger bewegen sich nicht
